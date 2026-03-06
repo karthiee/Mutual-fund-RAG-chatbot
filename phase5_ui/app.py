@@ -24,6 +24,15 @@ ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT / "phase4_rag_pipeline"))
 sys.path.insert(0, str(ROOT / "phase3_embedder"))
 
+# ── Secret injection (Streamlit Cloud → st.secrets; local → .env) ──────────────
+# Must happen BEFORE any downstream import that reads env vars
+try:
+    _groq_key = st.secrets.get("GROQ_API_KEY", "")
+    if _groq_key:
+        os.environ.setdefault("GROQ_API_KEY", _groq_key)
+except Exception:
+    pass  # running locally without secrets — dotenv handles it
+
 # ── Page config ─────────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="HDFC MF Chatbot",
@@ -46,10 +55,10 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif !important; }
     background: linear-gradient(145deg, #ffffff 0%, #fff5f7 40%, #fce8ef 100%) !important;
 }
 
-/* ── Remove top padding ───────────────────────────────────────── */
-.block-container {
+/* ── Main container — give bottom room so content clears input bar ─── */
+.block-container, [data-testid="stMainBlockContainer"] {
     padding-top: 0.5rem !important;
-    padding-bottom: 0rem !important;
+    padding-bottom: 6rem !important;   /* clears the fixed stBottom input bar */
     max-width: 900px !important;
 }
 
@@ -145,23 +154,24 @@ button[data-testid="baseButton-headerNoPadding"] {
     transform: none !important;
 }
 
-/* ── Home page — centered single column ───────────────────────── */
+/* ── Home page ─────────────────────────────────────────────────── */
 .home-center {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    gap: 1rem;
-    min-height: calc(100vh - 160px);
-    padding: 2rem 1rem;
+    gap: 0.55rem;
+    max-height: calc(100vh - 120px);
+    padding: 0.5rem 1rem;
+    overflow: hidden;
 }
-/* ── 3D Reverse-Fracture Ball Animation ─────────────────────── */
+/* ── 3D Ball Animation ──────────────────────────────────────────── */
 .orb-wrap {
     position: relative;
-    width: 140px; height: 140px;
+    width: 100px; height: 100px;
     margin: 0 auto;
-    perspective: 600px;      /* 3-D stage */
+    perspective: 600px;
 }
 
 /* The actual sphere — assembles from nothing */
@@ -219,14 +229,61 @@ button[data-testid="baseButton-headerNoPadding"] {
     100% { opacity:0;    transform:translate3d(calc(var(--tx)*1.6),calc(var(--ty)*1.6),calc(var(--tz)*1.5)) rotateX(calc(var(--rx)*2)) rotateY(calc(var(--ry)*2)) scale(0.2); }
 }
 .home-title {
-    font-size: 2rem; font-weight: 700; margin: 0;
+    font-size: 1.6rem; font-weight: 700; margin: 0;
     background: linear-gradient(135deg, #c0185c 0%, #f43f6e 50%, #ff9ec6 100%);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    line-height: 1.2;
+    line-height: 1.15;
 }
-.home-desc {
-    font-size: 0.88rem; color: rgba(100, 30, 60, 0.65);
-    line-height: 1.7; max-width: 420px; margin: 0 auto;
+/* ── Homepage info row — two-column: tagline left, fund list right ── */
+.home-info-row {
+    display: flex;
+    align-items: stretch;
+    gap: 1.5rem;
+    max-width: 560px;
+    margin: 0 auto;
+    text-align: left;
+}
+.home-desc-col {
+    flex: 1;
+    font-size: 0.78rem;
+    color: rgba(100, 30, 60, 0.65);
+    line-height: 1.55;
+    border-right: 1px solid rgba(192,24,92,0.15);
+    padding-right: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+.home-funds-col {
+    flex: 1;
+    padding-left: 0.1rem;
+}
+.home-funds-col p {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(192,24,92,0.5);
+    margin: 0 0 0.3rem;
+    font-weight: 600;
+}
+.home-funds-col ul {
+    list-style: none;
+    padding: 0; margin: 0;
+}
+.home-funds-col ul li {
+    font-size: 0.78rem;
+    color: rgba(80, 20, 50, 0.72);
+    line-height: 1.45;
+    padding-left: 0.75rem;
+    position: relative;
+    margin-bottom: 0.15rem;
+}
+.home-funds-col ul li::before {
+    content: '•';
+    color: #e91e8c;
+    position: absolute;
+    left: 0;
+    font-size: 0.65rem;
+    top: 0.2em;
 }
 
 /* ── MF capability cards grid ─────────────────────────────────── */
@@ -238,8 +295,8 @@ button[data-testid="baseButton-headerNoPadding"] {
     background: linear-gradient(135deg, rgba(244,63,110,0.08) 0%, rgba(236,72,120,0.04) 100%);
     border: 1px solid rgba(236,72,120,0.25);
     border-radius: 1.2rem;
-    padding: 0.55rem 1.1rem;
-    font-size: 0.82rem;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.75rem;
     font-weight: 500;
     color: #c0185c;
     cursor: default;
@@ -254,11 +311,28 @@ button[data-testid="baseButton-headerNoPadding"] {
     box-shadow: 0 6px 18px rgba(244,63,110,0.18);
 }
 
+/* ── Fund name tags (homepage) ─────────────────────────────────── */
+.fund-list {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    justify-content: center; max-width: 600px;
+    margin: 1rem auto 0.4rem;
+}
+.fund-tag {
+    background: rgba(192, 24, 92, 0.06);
+    border: 1px solid rgba(192, 24, 92, 0.2);
+    border-radius: 2rem;
+    padding: 0.35rem 0.95rem;
+    font-size: 0.76rem;
+    font-weight: 500;
+    color: rgba(100, 20, 60, 0.75);
+    white-space: nowrap;
+}
+
 /* ── Chat messages ─────────────────────────────────────────────── */
 .chat-area {
     display: flex; flex-direction: column;
     gap: 3.5rem;
-    padding: 2rem 0 2.5rem 0;
+    padding: 2rem 0 8rem 0;   /* 8rem bottom = clears the fixed input bar */
     max-width: 780px;
     margin: 0 auto;
 }
@@ -318,14 +392,20 @@ button[data-testid="baseButton-headerNoPadding"] {
 }
 .ts-tag { font-size: 0.66rem; color: rgba(100,30,60,0.45); margin-top: 0.25rem; }
 
-/* ── Sticky footer (stBottom) — fully transparent ─────────────── */
-[data-testid="stBottom"],
+/* ── Sticky footer (stBottom) — solid bg so content hides behind it ── */
+[data-testid="stBottom"] {
+    background: linear-gradient(to bottom,
+        rgba(252,232,239,0) 0%,
+        rgba(252,232,239,1) 30%,
+        rgba(252,232,239,1) 100%) !important;
+    padding-top: 1.2rem !important;
+    border-top: none !important;
+    box-shadow: none !important;
+}
 [data-testid="stBottom"] > div,
 [data-testid="stBottom"] > div > div,
 [data-testid="stBottom"] > div > div > div {
     background: transparent !important;
-    background-color: transparent !important;
-    border-top: none !important;
     border: none !important;
     box-shadow: none !important;
     backdrop-filter: none !important;
@@ -535,11 +615,23 @@ if is_home:
             <div class="orb"></div>
         </div>
         <p class="home-title">Ask About HDFC<br/>Mutual Funds</p>
-        <p class="home-desc">
-            An AI-powered chatbot that answers real questions about
-            HDFC's 5 flagship mutual funds — instantly, accurately,
-            and with full source transparency.
-        </p>
+        <div class="home-info-row">
+            <div class="home-desc-col">
+                An AI-powered chatbot that answers real questions about
+                HDFC's 5 flagship mutual funds — instantly, accurately,
+                and with full source transparency.
+            </div>
+            <div class="home-funds-col">
+                <p>Covered Funds</p>
+                <ul>
+                    <li>HDFC Mid Cap Opportunities Fund</li>
+                    <li>HDFC Small Cap Fund</li>
+                    <li>HDFC ELSS Tax Saver Fund</li>
+                    <li>HDFC Large Cap Fund</li>
+                    <li>HDFC Flexi Cap Fund</li>
+                </ul>
+            </div>
+        </div>
         <div class="caps-grid">
             {caps_html}
         </div>
