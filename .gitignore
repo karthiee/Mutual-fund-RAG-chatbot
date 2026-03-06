@@ -1,6 +1,6 @@
 # ── Environment & Secrets ─────────────────────────────────────────
-.env
-*.env
+# .env is intentionally included for this project
+secrets.toml
 secrets.toml
 
 # ── Python ────────────────────────────────────────────────────────
