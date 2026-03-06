@@ -663,14 +663,36 @@ else:
             bc = "bubble-blocked" if blocked else ""
             sources = msg.get("sources", [])
             src_html = ""
-            # Only show sources when the response is factual and directly
-            # sourced (not blocked, not an error, and at least one source exists)
+
+            # ── Strip raw "Source: ..." / "Data last updated: ..." lines ──────
+            # The RAG pipeline appends these to response text, but we display
+            # sources as UI pills — strip them from the displayed text.
+            import re as _re
+            display_content = _re.sub(
+                r'\n?(Source:\s*.+|Data last updated:\s*.+)',
+                '',
+                content,
+                flags=_re.IGNORECASE
+            ).strip()
+
+            # ── Determine if sources should be shown ─────────────────────────
+            # Only show source pills when the response is a real factual answer
+            # about mutual funds — never for guardrail / blocked / off-topic.
+            _cl = display_content.lower()
+            _is_guardrail = (
+                blocked
+                or display_content.startswith("⚠️")
+                or "not allowed" in _cl
+                or "i cannot" in _cl
+                or "i'm sorry" in _cl
+                or "personal information" in _cl
+                or "source: none" in _cl
+                or _cl.startswith("i don't")
+                or _cl.startswith("i do not")
+            )
             show_sources = (
-                not blocked
+                not _is_guardrail
                 and bool(sources)
-                and not content.startswith("⚠️")
-                and not content.lower().startswith("i'm sorry")
-                and not content.lower().startswith("i cannot")
             )
             if show_sources:
                 seen = set()
@@ -688,7 +710,7 @@ else:
             <div class="msg-row-bot">
                 <div class="av av-bot">🔮</div>
                 <div class="bubble-bot {bc}">
-                    {content.replace(chr(10), "<br>")}
+                    {display_content.replace(chr(10), "<br>")}
                     {src_html}
                 </div>
             </div>""", unsafe_allow_html=True)
