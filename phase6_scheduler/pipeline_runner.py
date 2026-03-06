@@ -1,20 +1,22 @@
 """
 Phase 6 — Pipeline Runner.
 
-Orchestrates Phase 1 → Phase 2 → Phase 3 in sequence.
-Used by the scheduler (scheduler.py) and can be run standalone for a manual refresh.
+Orchestrates Phase 1 → Phase 2 → Phase 3 in sequence for ALL funds on every run.
+Change detection is available but NOT applied during scheduled runs — every run
+refreshes everything to ensure the vector store is always fully up to date.
 
 Flow:
     1. Run Phase 1 (scraper) for all or specified funds
-    2. Run change detection — skip phases 2+3 if data unchanged
-    3. Run Phase 2 (processor) on changed funds only
-    4. Run Phase 3 (embedder) with optional --reset flag
+    2. Run Phase 2 (processor) on ALL raw data
+    3. Run Phase 3 (embedder) — optionally with --reset to clear vector store first
 
 Usage:
     python pipeline_runner.py               # Full refresh (all funds)
     python pipeline_runner.py --reset       # Full re-embed (clears vector store)
     python pipeline_runner.py --skip-scrape # Skip Phase 1 (use existing raw data)
     python pipeline_runner.py --fund hdfc-mid-cap-3097   # Single fund
+    python pipeline_runner.py --smart       # Enable change detection (skip unchanged)
+    python pipeline_runner.py --trigger github_actions   # Tag the trigger source
 """
 
 import sys
@@ -86,9 +88,9 @@ class RunResult:
             "",
             "=" * 60,
             f"  Pipeline run — {'SUCCESS' if self.success else 'FAILURE'}",
+            f"  Trigger  : {self.trigger}",
             f"  Started  : {self.started_at}",
             f"  Finished : {self.finished_at}",
-            f"  Changed  : {self.changed_funds or 'none'}",
         ]
         for p in self.phases:
             lines.append(str(p))
@@ -191,39 +193,46 @@ def _run_phase3(reset: bool = False) -> PhaseResult:
 # ─────────────────────────────────────────────────────────────────────────────
 
 def run_full_pipeline(
-    fund_ids:    Optional[list[str]] = None,
-    skip_scrape: bool = False,
+    fund_ids:         Optional[list[str]] = None,
+    skip_scrape:      bool = False,
     reset_embeddings: bool = False,
-    trigger:     str = "manual",
-    headless:    bool = True,
+    trigger:          str  = "manual",
+    headless:         bool = True,
+    force_smart:      bool = False,   # True = use change detection to skip unchanged
 ) -> RunResult:
     """
-    Run the full Phase 1 → 2 → 3 pipeline with smart change detection.
+    Run the full Phase 1 → 2 → 3 pipeline for ALL funds.
+
+    By default every run re-processes and re-embeds ALL scraped data so the
+    vector store is always fully in sync.  Set force_smart=True (or --smart CLI
+    flag) to enable change detection and skip unchanged funds.
 
     Args:
         fund_ids:          Specific fund IDs to process. None = all funds.
         skip_scrape:       If True, skip Phase 1 (use existing raw data).
         reset_embeddings:  If True, clear the vector store before re-embedding.
-        trigger:           Label for the log ('daily_cron', 'monthly_cron', 'manual').
+        trigger:           Label for the log ('github_actions', 'daily_cron', 'manual').
         headless:          Whether Phase 1 runs the browser headlessly.
+        force_smart:       If True, apply change detection and skip unchanged funds.
 
     Returns:
-        RunResult with per-phase outcomes and changed fund list.
+        RunResult with per-phase outcomes.
     """
     result = RunResult(trigger=trigger)
 
     logger.info("=" * 60)
     logger.info(f"Phase 6 — Pipeline Start  [trigger={trigger}]")
-    logger.info(f"  fund_ids      : {fund_ids or 'all'}")
-    logger.info(f"  skip_scrape   : {skip_scrape}")
-    logger.info(f"  reset_embeddings: {reset_embeddings}")
+    logger.info(f"  fund_ids         : {fund_ids or 'all'}")
+    logger.info(f"  skip_scrape      : {skip_scrape}")
+    logger.info(f"  reset_embeddings : {reset_embeddings}")
+    logger.info(f"  change_detection : {'enabled (--smart)' if force_smart else 'disabled — full refresh'}")
     logger.info("=" * 60)
 
     # ── Phase 1: Scrape ────────────────────────────────────────────────────────
     if skip_scrape:
         p1 = PhaseResult("Phase 1 (Scraper)", True, skipped=True,
                          detail="--skip-scrape flag set — using existing raw data")
-        logger.info(f"  Skipped Phase 1 — using existing raw_data.")
+        logger.info("  Skipped Phase 1 — using existing raw_data.")
     else:
         p1 = _run_phase1(fund_ids, headless=headless)
     result.phases.append(p1)
@@ -234,23 +243,26 @@ def run_full_pipeline(
         logger.info(result.summary())
         return result
 
-    # ── Change Detection ───────────────────────────────────────────────────────
-    changed, cd_result = _run_change_detection(fund_ids)
-    result.phases.append(cd_result)
-    result.changed_funds = changed
+    # ── Optional Change Detection (only when --smart is set) ──────────────────
+    if force_smart:
+        changed, cd_result = _run_change_detection(fund_ids)
+        result.phases.append(cd_result)
+        result.changed_funds = changed
 
-    if not changed and not reset_embeddings:
-        logger.info("No changes detected — skipping Phase 2 and Phase 3.")
-        for phase_name in ["Phase 2 (Processor)", "Phase 3 (Embedder)"]:
-            result.phases.append(
-                PhaseResult(phase_name, True, skipped=True,
-                            detail="No data changes — skipped")
-            )
-        result.finished_at = datetime.now(timezone.utc).isoformat()
-        logger.info(result.summary())
-        return result
+        if not changed and not reset_embeddings:
+            logger.info("No changes detected — skipping Phase 2 and Phase 3.")
+            for phase_name in ["Phase 2 (Processor)", "Phase 3 (Embedder)"]:
+                result.phases.append(
+                    PhaseResult(phase_name, True, skipped=True,
+                                detail="No data changes detected — skipped")
+                )
+            result.finished_at = datetime.now(timezone.utc).isoformat()
+            logger.info(result.summary())
+            return result
+    else:
+        logger.info("Change detection skipped — processing ALL funds (full refresh mode).")
 
-    # ── Phase 2: Process ───────────────────────────────────────────────────────
+    # ── Phase 2: Process ALL raw data ─────────────────────────────────────────
     p2 = _run_phase2()
     result.phases.append(p2)
 
@@ -260,7 +272,7 @@ def run_full_pipeline(
         logger.info(result.summary())
         return result
 
-    # ── Phase 3: Embed ────────────────────────────────────────────────────────
+    # ── Phase 3: Embed ALL chunks ─────────────────────────────────────────────
     p3 = _run_phase3(reset=reset_embeddings)
     result.phases.append(p3)
 
@@ -281,10 +293,12 @@ if __name__ == "__main__":
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python pipeline_runner.py                          # Full refresh (all funds)
-  python pipeline_runner.py --reset                  # Full re-embed
+  python pipeline_runner.py                          # Full refresh ALL funds
+  python pipeline_runner.py --reset                  # Full re-embed (clear store)
   python pipeline_runner.py --skip-scrape            # Process existing raw data
   python pipeline_runner.py --fund hdfc-mid-cap-3097 # Single fund
+  python pipeline_runner.py --smart                  # Enable change detection
+  python pipeline_runner.py --trigger github_actions # Tag trigger source
         """,
     )
     parser.add_argument("--fund",        nargs="+", metavar="FUND_ID",
@@ -295,6 +309,10 @@ Examples:
                         help="Reset (clear) the vector store before embedding.")
     parser.add_argument("--headful",     action="store_true", default=False,
                         help="Run browser in visible mode (debug scraping).")
+    parser.add_argument("--smart",       action="store_true", default=False,
+                        help="Enable change detection — only re-embed changed funds.")
+    parser.add_argument("--trigger",     type=str, default="manual",
+                        help="Trigger label (e.g. github_actions, daily_cron). Default: manual.")
     args = parser.parse_args()
 
     run_result = run_full_pipeline(
@@ -302,5 +320,7 @@ Examples:
         skip_scrape=args.skip_scrape,
         reset_embeddings=args.reset,
         headless=not args.headful,
+        force_smart=args.smart,
+        trigger=args.trigger,
     )
     sys.exit(0 if run_result.success else 1)

@@ -1,15 +1,17 @@
 """
 Phase 6 — Scheduler & Automated Data Refresh.
 
-Runs two APScheduler cron jobs:
+Primary Scheduling: GitHub Actions (.github/workflows/daily_refresh.yml)
+  Runs every day at 10:30 UTC = 4:00 PM IST via cron: "30 10 * * *"
+  Processes ALL funds on every run (no change-detection gating).
+
+Local / Server Fallback: APScheduler (this file)
   ┌─────────────────────────────────────────────────────────────────┐
-  │  Daily Job   — 3:45 PM IST (post-NSE market close)             │
-  │               Run Phase 1 → change detection → Phase 2 → 3     │
-  │               Refreshes NAV prices (update daily)              │
-  │                                                                 │
-  │  Monthly Job — 1st of every month, 6:00 AM IST                 │
-  │               Full re-scrape + reset embeddings                │
-  │               Refreshes holdings & expense ratios              │
+  │  Daily Job    — 4:00 PM IST (aligns with GitHub Actions)            │
+  │               Run Phase 1 → 2 → 3 for ALL funds                   │
+  │                                                                     │
+  │  Monthly Job  — 1st of every month, 6:00 AM IST                    │
+  │               Full re-scrape + reset embeddings                    │
   └─────────────────────────────────────────────────────────────────┘
 
 Error Handling:
@@ -137,14 +139,13 @@ def build_scheduler():
     # BlockingScheduler keeps the main thread alive (ideal for a long-running process)
     scheduler = BlockingScheduler(timezone="Asia/Kolkata")
 
-    # ── Daily job: 3:45 PM IST, every weekday ─────────────────────────────────
-    # NAV only updates on trading days, but running on weekends is harmless
-    # (change detection will find no changes and skip re-embedding)
+    # ── Daily job: 4:00 PM IST — aligned with GitHub Actions cron (10:30 UTC) ──
+    # Runs ALL funds every day — no change detection gating
     scheduler.add_job(
         daily_nav_refresh,
-        trigger=CronTrigger(hour=15, minute=45, timezone="Asia/Kolkata"),
+        trigger=CronTrigger(hour=16, minute=0, timezone="Asia/Kolkata"),
         id="daily_nav_refresh",
-        name="Daily NAV Refresh (3:45 PM IST)",
+        name="Daily Full Refresh (4:00 PM IST)",
         misfire_grace_time=600,     # allow 10 min late start
         coalesce=True,              # merge multiple missed fires into one
         replace_existing=True,

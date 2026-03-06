@@ -1,0 +1,79 @@
+name: Daily Data Refresh — HDFC MF
+
+# ── Trigger ────────────────────────────────────────────────────────────────────
+# 10:30 UTC = 4:00 PM IST (UTC+5:30)
+on:
+  schedule:
+    - cron: "30 10 * * *"   # every day at 4:00 PM IST
+
+  # Allow manual trigger from GitHub Actions UI
+  workflow_dispatch:
+    inputs:
+      reset_embeddings:
+        description: "Reset vector store before re-embedding? (true/false)"
+        required: false
+        default: "false"
+
+# ── Permissions ────────────────────────────────────────────────────────────────
+permissions:
+  contents: write   # needed to commit updated raw_data / vector_store back
+
+# ── Jobs ──────────────────────────────────────────────────────────────────────
+jobs:
+  refresh:
+    name: "Phase 1 → 2 → 3 — Full Refresh (all funds)"
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    env:
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      PYTHONUNBUFFERED: "1"
+
+    steps:
+      # ── 1. Checkout repo ────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── 2. Set up Python ────────────────────────────────────────────────────
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      # ── 3. Install Playwright browsers (Phase 1 scraper needs Chromium) ────
+      - name: Install Playwright + Chromium
+        run: |
+          pip install playwright
+          playwright install --with-deps chromium
+
+      # ── 4. Install all phase dependencies ───────────────────────────────────
+      - name: Install Python dependencies
+        run: |
+          pip install -r phase1_scraper/requirements.txt
+          pip install -r phase2_processor/requirements.txt
+          pip install -r phase3_embedder/requirements.txt
+          pip install -r phase6_scheduler/requirements.txt
+
+      # ── 5. Run the full pipeline (Phase 1 → 2 → 3, ALL funds) ─────────────
+      - name: Run full data refresh pipeline
+        run: |
+          RESET_FLAG=""
+          if [ "${{ github.event.inputs.reset_embeddings }}" = "true" ]; then
+            RESET_FLAG="--reset"
+          fi
+          python phase6_scheduler/pipeline_runner.py \
+            --trigger github_actions \
+            $RESET_FLAG
+
+      # ── 6. Commit updated data files back to the repo ──────────────────────
+      - name: Commit refreshed data
+        run: |
+          git config user.name  "GitHub Actions (HDFC MF Refresh)"
+          git config user.email "actions@github.com"
+          git add phase1_scraper/raw_data/
+          git add phase2_processor/processed_data/
+          git add phase3_embedder/vector_store/
+          git diff --cached --quiet || git commit -m \
+            "data: automated refresh $(date -u +'%Y-%m-%d %H:%M UTC') [skip ci]"
+          git push
