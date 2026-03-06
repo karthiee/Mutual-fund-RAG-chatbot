@@ -1,0 +1,34 @@
+{
+    "fund_id": "hdfc-mid-cap-3097",
+    "fund_name": "HDFC Mid Cap Opportunities Fund Direct Plan Growth",
+    "category": "Mid Cap Fund",
+    "source_url": "https://www.indmoney.com/mutual-funds/hdfc-mid-cap-fund-direct-plan-growth-option-3097",
+    "scraped_at": "2026-03-03T17:00:00+00:00",
+    "nav": {
+        "price": 191.90,
+        "currency": "INR",
+        "nav_date": "2026-03-03"
+    },
+    "expense_ratio": "0.74%",
+    "exit_load": "1% if redeemed within 1 year",
+    "minimum_sip": "₹100",
+    "lock_in_period": "None",
+    "riskometer": "Very High Risk",
+    "top_holdings": [
+        {
+            "rank": 1,
+            "name": "Cholamandalam Investment and Finance Company Ltd",
+            "percentage": 2.80
+        },
+        {
+            "rank": 2,
+            "name": "Persistent Systems Ltd",
+            "percentage": 2.71
+        },
+        {
+            "rank": 3,
+            "name": "Max Healthcare Institute Ltd",
+            "percentage": 2.51
+        }
+    ]
+}

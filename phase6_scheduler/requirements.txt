@@ -1,0 +1,5 @@
+# Phase 6 — Scheduler & Automated Data Refresh Dependencies
+APScheduler>=3.10.0
+deepdiff>=7.0.0
+loguru>=0.7.0
+python-dotenv>=1.0.0

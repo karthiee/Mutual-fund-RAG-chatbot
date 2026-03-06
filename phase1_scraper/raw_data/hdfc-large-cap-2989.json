@@ -1,0 +1,34 @@
+{
+    "fund_id": "hdfc-large-cap-2989",
+    "fund_name": "HDFC Top 100 Fund Large Cap Direct Plan Growth",
+    "category": "Large Cap Fund",
+    "source_url": "https://www.indmoney.com/mutual-funds/hdfc-large-cap-fund-direct-plan-growth-option-2989",
+    "scraped_at": "2026-03-03T17:00:00+00:00",
+    "nav": {
+        "price": 1090.22,
+        "currency": "INR",
+        "nav_date": "2026-03-03"
+    },
+    "expense_ratio": "0.55%",
+    "exit_load": "1% if redeemed within 1 year",
+    "minimum_sip": "₹100",
+    "lock_in_period": "None",
+    "riskometer": "Very High Risk",
+    "top_holdings": [
+        {
+            "rank": 1,
+            "name": "HDFC Bank Ltd",
+            "percentage": 11.21
+        },
+        {
+            "rank": 2,
+            "name": "ICICI Bank Ltd",
+            "percentage": 9.47
+        },
+        {
+            "rank": 3,
+            "name": "Reliance Industries Ltd",
+            "percentage": 7.33
+        }
+    ]
+}

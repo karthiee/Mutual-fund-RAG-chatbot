@@ -1,0 +1,12 @@
+# Phase 3 — Embedding & Vector Store Dependencies
+# Install with: pip install -r requirements.txt
+
+# ── Embedding ─────────────────────────────────────────────────────────────────
+sentence-transformers>=2.7.0   # all-MiniLM-L6-v2 embedding model (local, free)
+torch>=2.1.0                   # Required by sentence-transformers
+
+# ── Vector Store ──────────────────────────────────────────────────────────────
+chromadb>=0.5.0                # Local persistent vector database
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+loguru>=0.7.2                  # Structured logging

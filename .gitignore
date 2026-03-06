@@ -1,0 +1,57 @@
+# ── Environment & Secrets ─────────────────────────────────────────
+.env
+*.env
+secrets.toml
+
+# ── Python ────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ── Virtual environments ──────────────────────────────────────────
+venv/
+.venv/
+env/
+.env/
+ENV/
+
+# ── Jupyter ───────────────────────────────────────────────────────
+.ipynb_checkpoints/
+
+# ── Playwright / scraper ──────────────────────────────────────────
+playwright-chromium/
+playwright-firefox/
+
+# ── Vector store (large binary files) ────────────────────────────
+phase3_embedder/vector_store/chroma.sqlite3
+phase3_embedder/vector_store/*.bin
+phase3_embedder/vector_store/*.index
+
+# ── Logs ──────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── OS ────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDE ───────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.suo
+*.user
+
+# ── Streamlit cache ───────────────────────────────────────────────
+.streamlit/secrets.toml
+
+# ── Pytest / coverage ────────────────────────────────────────────
+.pytest_cache/
+htmlcov/
+.coverage

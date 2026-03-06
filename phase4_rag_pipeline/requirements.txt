@@ -1,0 +1,21 @@
+# Phase 4 — RAG Pipeline & Groq LLM Dependencies
+# Install with: pip install -r requirements.txt
+
+# ── LLM & Orchestration ───────────────────────────────────────────────────────
+langchain>=0.3.0               # RAG orchestration framework
+langchain-groq>=0.2.0          # Groq LLM integration for LangChain
+langchain-community>=0.3.0     # ChromaDB retriever + community integrations
+langchain-core>=0.3.0          # Core LangChain abstractions
+
+# ── Groq client ───────────────────────────────────────────────────────────────
+groq>=0.9.0                    # Official Groq Python SDK
+
+# ── Vector Store & Embeddings (same as Phase 3) ───────────────────────────────
+chromadb>=0.5.0                # Local ChromaDB client
+sentence-transformers>=2.7.0   # all-MiniLM-L6-v2 embedding model
+
+# ── Config ────────────────────────────────────────────────────────────────────
+python-dotenv>=1.0.0           # Load GROQ_API_KEY from .env
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+loguru>=0.7.2                  # Structured logging

@@ -1,0 +1,8 @@
+# Phase 2 — Data Processing & Structuring Dependencies
+# Install with: pip install -r requirements.txt
+
+# ── Data Validation ───────────────────────────────────────────────────────────
+pydantic>=2.6.0               # Data models and validation (same version as Phase 1)
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+loguru>=0.7.2                 # Structured logging
