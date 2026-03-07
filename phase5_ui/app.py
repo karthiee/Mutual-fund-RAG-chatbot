@@ -647,37 +647,36 @@ else:
         except Exception:  # noqa
             return ts
 
-    st.markdown('<div class="chat-area">', unsafe_allow_html=True)
+    import re as _re
+
+    # Build entire chat HTML as ONE string → single st.markdown call
+    # This avoids Streamlit wrapping each call in its own container, which
+    # causes orphaned </div> tags to appear as visible text.
+    chat_html = ['<div class="chat-area">']
+
     for msg in st.session_state.messages:
-        role = msg["role"]
+        role    = msg["role"]
         content = msg["content"]
 
         if role == "user":
-            st.markdown(f"""
+            safe = content.replace("<", "&lt;").replace(">", "&gt;")
+            chat_html.append(f'''
             <div class="msg-row-user">
-                <div class="bubble-user">{content}</div>
+                <div class="bubble-user">{safe}</div>
                 <div class="av av-user">👤</div>
-            </div>""", unsafe_allow_html=True)
+            </div>''')
         else:
-            blocked = msg.get("blocked", False)
-            bc = "bubble-blocked" if blocked else ""
-            sources = msg.get("sources", [])
-            src_html = ""
+            blocked  = msg.get("blocked", False)
+            bc       = "bubble-blocked" if blocked else ""
+            sources  = msg.get("sources", [])
 
-            # ── Strip raw "Source: ..." / "Data last updated: ..." lines ──────
-            # The RAG pipeline appends these to response text, but we display
-            # sources as UI pills — strip them from the displayed text.
-            import re as _re
+            # Strip raw "Source: ..." / "Data last updated: ..." appended by RAG
             display_content = _re.sub(
                 r'\n?(Source:\s*.+|Data last updated:\s*.+)',
-                '',
-                content,
-                flags=_re.IGNORECASE
+                '', content, flags=_re.IGNORECASE
             ).strip()
 
-            # ── Determine if sources should be shown ─────────────────────────
-            # Only show source pills when the response is a real factual answer
-            # about mutual funds — never for guardrail / blocked / off-topic.
+            # Show source pills only for real factual MF answers
             _cl = display_content.lower()
             _is_guardrail = (
                 blocked
@@ -690,11 +689,8 @@ else:
                 or _cl.startswith("i don't")
                 or _cl.startswith("i do not")
             )
-            show_sources = (
-                not _is_guardrail
-                and bool(sources)
-            )
-            if show_sources:
+            src_html = ""
+            if not _is_guardrail and sources:
                 seen = set()
                 for s in sources:
                     url  = s.get("url", "")
@@ -706,16 +702,16 @@ else:
                         if ts:
                             src_html += f'<div class="ts-tag">📅 {_fmt_ts(ts)}</div>'
 
-            st.markdown(f"""
+            body = display_content.replace("\n", "<br>")
+            chat_html.append(f'''
             <div class="msg-row-bot">
                 <div class="av av-bot">🔮</div>
-                <div class="bubble-bot {bc}">
-                    {display_content.replace(chr(10), "<br>")}
-                    {src_html}
-                </div>
-            </div>""", unsafe_allow_html=True)
+                <div class="bubble-bot {bc}">{body}{src_html}</div>
+            </div>''')
 
-    st.markdown('</div>', unsafe_allow_html=True)
+    chat_html.append('</div>')
+    st.markdown("\n".join(chat_html), unsafe_allow_html=True)
+
 
 
 # ─────────────────────────────────────────────────────────────────────────────

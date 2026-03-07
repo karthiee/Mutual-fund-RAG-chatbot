@@ -45,7 +45,7 @@ logger.add(ROOT_DIR / "rag_pipeline.log", level="DEBUG", rotation="5 MB", retent
 # ── Constants ─────────────────────────────────────────────────────────────────
 EMBEDDING_MODEL   = "all-MiniLM-L6-v2"
 GROQ_MODEL        = "llama-3.3-70b-versatile"
-TOP_K_RESULTS     = 5
+TOP_K_RESULTS     = 12    # increased from 5 — handles multi-fund queries
 MAX_HISTORY_TURNS = 10
 
 
@@ -182,7 +182,9 @@ class MutualFundRAG:
     def _detect_filters(query: str) -> Optional[dict]:
         """
         Detect fund category and chunk type from the query for metadata filtering.
-        Returns a ChromaDB $and filter or None.
+        When MULTIPLE fund categories are mentioned, skip category filter so all
+        relevant funds are retrieved by semantic search.
+        Returns a ChromaDB filter dict or None.
         """
         query_lower = query.lower()
 
@@ -204,11 +206,15 @@ class MutualFundRAG:
             ("risk", "riskometer",):                            "overview",
         }
 
-        detected_category = None
-        for keyword, slug in category_map.items():
-            if keyword in query_lower:
-                detected_category = slug
-                break
+        # Detect ALL matching fund categories in the query
+        matched_categories = [
+            slug for keyword, slug in category_map.items()
+            if keyword in query_lower
+        ]
+
+        # If MORE THAN ONE fund category mentioned → skip category filter
+        # so semantic search retrieves context for all mentioned funds
+        detected_category = matched_categories[0] if len(matched_categories) == 1 else None
 
         detected_chunk = None
         for keywords, chunk_type in chunk_map.items():
