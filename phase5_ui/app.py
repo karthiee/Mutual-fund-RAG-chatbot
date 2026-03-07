@@ -647,36 +647,33 @@ else:
         except Exception:  # noqa
             return ts
 
-    import re as _re
-
-    # Build entire chat HTML as ONE string → single st.markdown call
-    # This avoids Streamlit wrapping each call in its own container, which
-    # causes orphaned </div> tags to appear as visible text.
-    chat_html = ['<div class="chat-area">']
-
     for msg in st.session_state.messages:
-        role    = msg["role"]
+        role = msg["role"]
         content = msg["content"]
 
         if role == "user":
             safe = content.replace("<", "&lt;").replace(">", "&gt;")
-            chat_html.append(f'''
+            st.markdown(f"""
             <div class="msg-row-user">
                 <div class="bubble-user">{safe}</div>
                 <div class="av av-user">👤</div>
-            </div>''')
+            </div>""", unsafe_allow_html=True)
         else:
-            blocked  = msg.get("blocked", False)
-            bc       = "bubble-blocked" if blocked else ""
-            sources  = msg.get("sources", [])
+            blocked = msg.get("blocked", False)
+            bc = "bubble-blocked" if blocked else ""
+            sources = msg.get("sources", [])
+            src_html = ""
 
-            # Strip raw "Source: ..." / "Data last updated: ..." appended by RAG
+            # ── Strip raw "Source: ..." / "Data last updated: ..." lines ──────
+            import re as _re
             display_content = _re.sub(
                 r'\n?(Source:\s*.+|Data last updated:\s*.+)',
-                '', content, flags=_re.IGNORECASE
+                '',
+                content,
+                flags=_re.IGNORECASE
             ).strip()
 
-            # Show source pills only for real factual MF answers
+            # ── Determine if sources should be shown ─────────────────────────
             _cl = display_content.lower()
             _is_guardrail = (
                 blocked
@@ -689,8 +686,11 @@ else:
                 or _cl.startswith("i don't")
                 or _cl.startswith("i do not")
             )
-            src_html = ""
-            if not _is_guardrail and sources:
+            show_sources = (
+                not _is_guardrail
+                and bool(sources)
+            )
+            if show_sources:
                 seen = set()
                 for s in sources:
                     url  = s.get("url", "")
@@ -703,14 +703,15 @@ else:
                             src_html += f'<div class="ts-tag">📅 {_fmt_ts(ts)}</div>'
 
             body = display_content.replace("\n", "<br>")
-            chat_html.append(f'''
+            st.markdown(f"""
             <div class="msg-row-bot">
                 <div class="av av-bot">🔮</div>
-                <div class="bubble-bot {bc}">{body}{src_html}</div>
-            </div>''')
+                <div class="bubble-bot {bc}">
+                    {body}
+                    {src_html}
+                </div>
+            </div>""", unsafe_allow_html=True)
 
-    chat_html.append('</div>')
-    st.markdown("\n".join(chat_html), unsafe_allow_html=True)
 
 
 
