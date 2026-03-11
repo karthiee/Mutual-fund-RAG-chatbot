@@ -37,10 +37,12 @@ logger.add(sys.stdout, level="INFO", colorize=True,
            format="<green>{time:HH:mm:ss}</green> | <level>{level:<7}</level> | {message}")
 logger.add(ROOT_DIR / "scraper.log", level="DEBUG", rotation="5 MB", retention="7 days")
 
-# ── Timeouts / waits ──────────────────────────────────────────────────────────
-PAGE_TIMEOUT_MS    = 30_000   # max time to wait for page load
-ELEMENT_TIMEOUT_MS = 10_000   # max time to wait for individual elements
-POST_CLICK_WAIT_MS = 2_000    # wait after clicking a tab
+# —— Timeouts / waits —————————————————————————————————————————————
+PAGE_TIMEOUT_MS    = 60_000   # max time to wait for page load (60s for CI)
+ELEMENT_TIMEOUT_MS = 15_000   # max time to wait for individual elements
+POST_CLICK_WAIT_MS = 3_000    # wait after clicking a tab
+PAGE_SETTLE_MS     = 7_000    # wait for JS SPA to render after load
+CF_DETECT_TIMEOUT  = 30_000   # extra wait if Cloudflare challenge detected
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -330,10 +332,21 @@ def scrape_fund(page: Page, fund_meta: dict) -> FundModel:
     logger.info(f"Scraping: {fund_meta['display_name']} ({fund_id})")
     logger.debug(f"  URL: {url}")
 
-    # ── Navigate ──────────────────────────────────────────────────────────────
-    page.goto(url, wait_until="domcontentloaded", timeout=PAGE_TIMEOUT_MS)
-    # Extra wait for JS-heavy SPA to settle
-    page.wait_for_timeout(3_000)
+    # —— Navigate —————————————————————————————————————————————
+    page.goto(url, wait_until="networkidle", timeout=PAGE_TIMEOUT_MS)
+    # Wait for React SPA to fully render (longer on CI)
+    page.wait_for_timeout(PAGE_SETTLE_MS)
+
+    # Cloudflare / bot-challenge detection: if "Just a moment" is still showing,
+    # wait up to 30 additional seconds for it to resolve.
+    for _ in range(6):
+        title = page.title()
+        body_len = len(page.inner_text("body"))
+        if "just a moment" in title.lower() or body_len < 500:
+            logger.warning(f"  Cloudflare challenge detected for {fund_id}. Waiting 5s...")
+            page.wait_for_timeout(5_000)
+        else:
+            break
 
     # ── Extract NAV ───────────────────────────────────────────────────────────
     logger.debug("  Extracting NAV...")
@@ -422,13 +435,23 @@ def run(fund_ids: Optional[list[str]] = None, headless: bool = True) -> list[Pat
     failed_funds: list[str] = []
 
     with sync_playwright() as pw:
-        # 1. Launch with stealth args
+        # 1. Launch with stealth args (includes Linux required flags for CI/Docker)
         browser = pw.chromium.launch(
             headless=headless,
             args=[
+                # -- Bot detection evasion --
                 "--disable-blink-features=AutomationControlled",
                 "--disable-infobars",
                 "--window-size=1920,1080",
+                # -- Linux / GitHub Actions / Docker requirements --
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-gpu",
+                "--single-process",
+                # -- Additional stealth --
+                "--disable-extensions",
+                "--lang=en-US",
             ]
         )
         # 2. Add realistic headers and viewport
