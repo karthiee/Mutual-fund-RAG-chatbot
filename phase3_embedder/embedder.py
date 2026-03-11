@@ -50,7 +50,21 @@ logger.add(ROOT_DIR / "embedder.log", level="DEBUG", rotation="5 MB", retention=
 def _get_embedding_model():
     from sentence_transformers import SentenceTransformer  # noqa
     logger.info(f"Loading embedding model: {EMBEDDING_MODEL}")
-    model = SentenceTransformer(EMBEDDING_MODEL)
+    import os
+    import sys
+    os.environ["TQDM_DISABLE"] = "1"
+    os.environ["HF_HUB_DISABLE_PROGRESS_BARS"] = "1"
+    
+    class DummyFile:
+        def write(self, x): pass
+        def flush(self): pass
+        
+    old_stderr = sys.stderr
+    try:
+        sys.stderr = DummyFile()
+        model = SentenceTransformer(EMBEDDING_MODEL)
+    finally:
+        sys.stderr = old_stderr
     logger.success(f"Embedding model loaded (dim={model.get_sentence_embedding_dimension()})")
     return model
 

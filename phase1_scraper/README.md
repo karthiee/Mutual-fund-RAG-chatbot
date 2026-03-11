@@ -7,7 +7,7 @@ Scrapes HDFC Mutual Fund data from [INDmoney](https://www.indmoney.com/mutual-fu
 ```
 phase1_scraper/
 ├── scraper.py          ← Main entry point (run this)
-├── models.py           ← Pydantic data models + FUND_REGISTRY
+├── scraper_models.py   ← Pydantic data models + FUND_REGISTRY
 ├── requirements.txt    ← Python dependencies
 ├── scraper.log         ← Rotating log file (created on first run)
 └── raw_data/

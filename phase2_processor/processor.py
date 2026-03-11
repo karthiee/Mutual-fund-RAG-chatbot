@@ -28,7 +28,7 @@ from pathlib import Path
 from loguru import logger
 from pydantic import ValidationError
 
-from models import (
+from processor_models import (
     ChunkMetadata,
     ChunkType,
     DocumentChunk,
