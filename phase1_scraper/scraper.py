@@ -94,33 +94,47 @@ def _extract_nav(page: Page) -> NAVModel:
         Price text:  "₹150.04"
         Date text:   "as of Mar 02, 2026"  or  "02 Mar 2026"
     """
-    # Common selectors for NAV price on INDmoney
-    nav_selectors = [
-        "[data-testid='nav-price']",
-        ".nav-price",
-        "span:has-text('₹')",           # fallback: any rupee span
-    ]
-    raw_price = "0"
-    for sel in nav_selectors:
-        try:
-            elem = page.locator(sel).first
-            if elem.count():
-                text = elem.inner_text().strip()
-                raw_price = text
-                break
-        except Exception:  # noqa: BLE001
-            continue
-
-    # Strip currency symbol and commas → float
-    price_str = re.sub(r"[^\d.]", "", raw_price.replace(",", ""))
-    try:
-        nav_price = float(price_str) if price_str else 0.0
-    except ValueError:
-        nav_price = 0.0
-
-    # NAV date — look for "as of" pattern anywhere on page
     page_text = page.inner_text("body")
     nav_date = date.today()
+    nav_price = 0.0
+
+    # 1. Match Price — INDmoney page structure (2026-03):
+    #    ₹145.93\n\n₹1.9%\n1D\n\nNAV as on 11 Mar 2026
+    # Strategy: Find the '1D' daily-return marker, look at text BEFORE it,
+    # grab all decimal numbers >= 5.0 (to skip the tiny change%), take the last.
+    idx_1d = page_text.find('\n1D')
+    if idx_1d < 0:
+        m1d = re.search(r'\b1D\b', page_text)
+        idx_1d = m1d.start() if m1d else -1
+
+    if idx_1d > 0:
+        pre_block = page_text[max(0, idx_1d - 200): idx_1d]
+        nums = re.findall(r'\d[\d,]*\.\d+|\d{3,}', pre_block)
+        candidates = []
+        for n in nums:
+            try:
+                v = float(n.replace(',', ''))
+                if v >= 5.0:
+                    candidates.append(v)
+            except ValueError:
+                pass
+        if candidates:
+            nav_price = candidates[-1]
+
+    # Fallback: extract from FAQ "The NAV of the fund today is 145.93"
+    if nav_price == 0.0:
+        faq_match = re.search(
+            r'The NAV of the fund today is[\s\S]{0,5}?([\d,]+\.?\d*)',
+            page_text, re.IGNORECASE
+        )
+        if faq_match:
+            try:
+                nav_price = float(faq_match.group(1).replace(',', ''))
+            except ValueError:
+                pass
+
+            
+    # 2. Match Date
     date_match = re.search(
         r"(?:as of|As of|NAV as on)\s+([A-Za-z]{3}\s+\d{1,2},?\s+\d{4}|\d{1,2}\s+[A-Za-z]{3}\s+\d{4})",
         page_text,
@@ -173,12 +187,22 @@ def _extract_overview(page: Page) -> dict:
         # guard against over-greedy match
         exit_load = exit_load[:80]
 
-    # Minimum SIP — e.g. "Min SIP  ₹100"
-    minimum_sip = _find_field([
-        r"Min(?:imum)?\s+SIP[:\s]+([\₹\d,\s]+)",
-        r"SIP\s+Amount[:\s]+([\₹\d,\s]+)",
-    ])
-    minimum_sip = minimum_sip.strip().rstrip(",") if minimum_sip != "N/A" else "N/A"
+    # Minimum SIP — INDmoney shows "Min Lumpsum/SIP\n₹100/₹100"
+    # The format is lumpsum/sip — extract the SIP part (second after slash)
+    minimum_sip = "N/A"
+    sip_match = re.search(
+        r"Min\s+Lumpsum/SIP\s*[\n\r]+[^\d]*(\d[\d,]*)[^\d]*/[^\d]*(\d[\d,]*)",
+        page_text, re.IGNORECASE
+    )
+    if sip_match:
+        minimum_sip = f"\u20b9{sip_match.group(2).strip()}"
+    else:
+        minimum_sip = _find_field([
+            r"Min(?:imum)?\s+SIP[:\s]+[^\d]*(\d[\d,]*)",
+            r"SIP\s+Amount[:\s]+[^\d]*(\d[\d,]*)",
+        ])
+        if minimum_sip != "N/A":
+            minimum_sip = f"\u20b9{minimum_sip.strip()}"
 
     # Lock-in period — only ELSS will have a non-None value
     lock_in_period = _find_field([
@@ -239,31 +263,42 @@ def _extract_holdings(page: Page) -> list[HoldingModel]:
 
     page_text = page.inner_text("body")
 
-    # Pattern: a stock name followed by a percentage on the same or next line.
-    # Stock names are typically title-case words (may include &, Ltd, etc.)
+    # INDmoney structure (as of 2026-03):
+    #   Stock Name<tab>\n4.21%<tab>\n<tab>\n0%\n\n
+    # Primary pattern — tab-separated holding rows
     holding_pattern = re.compile(
-        r"([A-Z][A-Za-z0-9\s\&\.\(\)\-,]{3,60?})\s+(\d+\.?\d*)\s*%",
+        r"^([A-Z][A-Za-z0-9\s\&\.\(\),'\-]{3,80})\s*\t\s*[\n\r]+\s*(\d+\.?\d*)%",
         re.MULTILINE,
     )
     matches = holding_pattern.findall(page_text)
 
+    # Fallback: plain 'Name\n4.21%' pattern if tabs are stripped
+    if not matches:
+        holding_pattern = re.compile(
+            r"^([A-Z][A-Za-z0-9\s\&\.\(\),'\-]{3,80})\s*[\n\r]+\s*(\d+\.?\d*)%",
+            re.MULTILINE,
+        )
+        matches = holding_pattern.findall(page_text)
+
     holdings = []
     seen_names: set[str] = set()
     rank = 1
+    noise_keywords = ("Sector", "Asset", "Category", "Fund", "Holdings",
+                      "Riskometer", "Overview", "Performance", "Compare",
+                      "Mutual", "Direct", "Growth", "Returns", "NAV",
+                      "Inception", "Nifty", "Benchmark", "Weight")
     for raw_name, raw_pct in matches:
         name = raw_name.strip()
-        # Skip very short, duplicate, or generic matches
         if len(name) < 4 or name in seen_names:
             continue
-        # Skip lines that look like section headers / noise
-        noise_keywords = ("Sector", "Asset", "Category", "Fund", "Holdings",
-                          "Riskometer", "Overview", "Performance", "Compare",
-                          "Mutual", "Direct", "Growth", "Returns")
         if any(kw.lower() in name.lower() for kw in noise_keywords):
             continue
+        # Skip if percentage looks like a return figure (very large)
+        pct_val = float(raw_pct)
+        if pct_val > 30:
+            continue
         seen_names.add(name)
-        pct = float(raw_pct)
-        holdings.append(HoldingModel(rank=rank, name=name, percentage=pct))
+        holdings.append(HoldingModel(rank=rank, name=name, percentage=pct_val))
         rank += 1
         if rank > 3:
             break
@@ -387,16 +422,37 @@ def run(fund_ids: Optional[list[str]] = None, headless: bool = True) -> list[Pat
     failed_funds: list[str] = []
 
     with sync_playwright() as pw:
-        browser = pw.chromium.launch(headless=headless)
+        # 1. Launch with stealth args
+        browser = pw.chromium.launch(
+            headless=headless,
+            args=[
+                "--disable-blink-features=AutomationControlled",
+                "--disable-infobars",
+                "--window-size=1920,1080",
+            ]
+        )
+        # 2. Add realistic headers and viewport
         context = browser.new_context(
             user_agent=(
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                 "AppleWebKit/537.36 (KHTML, like Gecko) "
                 "Chrome/122.0.0.0 Safari/537.36"
             ),
-            viewport={"width": 1280, "height": 900},
+            viewport={"width": 1920, "height": 1080},
             locale="en-IN",
+            extra_http_headers={
+                "Accept-Language": "en-US,en;q=0.9",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+                "Sec-Fetch-Dest": "document",
+                "Sec-Fetch-Mode": "navigate",
+                "Sec-Fetch-Site": "none",
+                "Sec-Fetch-User": "?1",
+                "Upgrade-Insecure-Requests": "1",
+            }
         )
+        
+        # 3. Spoof webdriver property
+        context.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined});")
         page = context.new_page()
 
         for fund_meta in targets:
