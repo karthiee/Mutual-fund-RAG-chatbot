@@ -355,6 +355,7 @@ button[data-testid="baseButton-headerNoPadding"] {
     font-size: 0.9rem; line-height: 1.6;
     box-shadow: 0 4px 20px rgba(244,63,110,0.32);
     font-weight: 500;
+    white-space: pre-wrap;
 }
 .bubble-bot {
     background: #ffffff;
@@ -364,6 +365,7 @@ button[data-testid="baseButton-headerNoPadding"] {
     padding: 0.95rem 1.2rem; max-width: 72%;
     font-size: 0.9rem; line-height: 1.7;
     box-shadow: 0 4px 20px rgba(100,20,50,0.07);
+    white-space: pre-wrap;
 }
 .bubble-blocked {
     border-color: rgba(220, 80, 80, 0.35) !important;
@@ -544,9 +546,10 @@ def run_query(query: str):
             "blocked": resp.blocked,
         })
     except Exception as exc:  # noqa: BLE001
+        import traceback
         st.session_state.messages.append({
             "role": "assistant",
-            "content": f"⚠️ Error: {exc}. Ensure Phase 3 vector store exists and GROQ_API_KEY is set.",
+            "content": f"⚠️ Error: {exc}\n\n```python\n{traceback.format_exc()}\n```",
             "sources": [], "blocked": False,
         })
 
@@ -654,10 +657,10 @@ else:
         if role == "user":
             safe = content.replace("<", "&lt;").replace(">", "&gt;")
             st.markdown(f"""
-            <div class="msg-row-user">
-                <div class="bubble-user">{safe}</div>
-                <div class="av av-user">👤</div>
-            </div>""", unsafe_allow_html=True)
+<div class="msg-row-user">
+    <div class="bubble-user">{safe}</div>
+    <div class="av av-user">👤</div>
+</div>""", unsafe_allow_html=True)
         else:
             blocked = msg.get("blocked", False)
             bc = "bubble-blocked" if blocked else ""
@@ -702,15 +705,15 @@ else:
                         if ts:
                             src_html += f'<div class="ts-tag">📅 {_fmt_ts(ts)}</div>'
 
-            body = display_content.replace("\n", "<br>")
+            body = display_content
             st.markdown(f"""
-            <div class="msg-row-bot">
-                <div class="av av-bot">🔮</div>
-                <div class="bubble-bot {bc}">
-                    {body}
-                    {src_html}
-                </div>
-            </div>""", unsafe_allow_html=True)
+<div class="msg-row-bot">
+    <div class="av av-bot">🔮</div>
+    <div class="bubble-bot {bc}">
+        {body}
+        {src_html}
+    </div>
+</div>""", unsafe_allow_html=True)
 
 
 

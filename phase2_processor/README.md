@@ -7,7 +7,7 @@ Reads raw JSON files produced by Phase 1, validates and cleans the data, splits 
 ```
 phase2_processor/
 ├── processor.py          ← Main entry point (run this)
-├── models.py             ← Pydantic models (ChunkType, RawFundData, DocumentChunk)
+├── processor_models.py   ← Pydantic models (ChunkType, RawFundData, DocumentChunk)
 ├── requirements.txt      ← Python dependencies
 ├── processor.log         ← Rotating log file (created on first run)
 └── processed_data/

@@ -169,7 +169,7 @@ def print_status(scheduler) -> None:
     """Print the next run times for all scheduled jobs."""
     print("\n  Scheduled jobs:")
     for job in scheduler.get_jobs():
-        next_run = job.next_run_time
+        next_run = getattr(job, "next_run_time", None)
         print(f"    • {job.name}")
         print(f"      Next run: {next_run.strftime('%Y-%m-%d %H:%M:%S %Z') if next_run else 'not scheduled'}")
     print()

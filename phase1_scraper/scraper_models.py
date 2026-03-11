@@ -19,7 +19,7 @@ class HoldingModel(BaseModel):
 
 class NAVModel(BaseModel):
     """Net Asset Value details for a fund."""
-    price: float = Field(..., gt=0, description="NAV price in INR")
+    price: float = Field(ge=0.0, description="Latest Net Asset Value")
     currency: str = Field(default="INR", description="Currency of NAV")
     nav_date: date = Field(..., description="Date for which NAV is reported")
 

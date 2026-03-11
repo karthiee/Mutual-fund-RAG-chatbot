@@ -34,10 +34,6 @@ PHASE1_DIR = ROOT_DIR / "phase1_scraper"
 PHASE2_DIR = ROOT_DIR / "phase2_processor"
 PHASE3_DIR = ROOT_DIR / "phase3_embedder"
 
-sys.path.insert(0, str(PHASE1_DIR))
-sys.path.insert(0, str(PHASE2_DIR))
-sys.path.insert(0, str(PHASE3_DIR))
-
 # ── Logging ───────────────────────────────────────────────────────────────────
 LOG_FILE = Path(__file__).parent / "scheduler.log"
 
@@ -108,8 +104,11 @@ def _run_phase1(fund_ids: Optional[list[str]], headless: bool = True) -> PhaseRe
     logger.info("Phase 1 — Scraping fund data from INDmoney…")
     t0 = time.time()
     try:
+        sys.path.insert(0, str(PHASE1_DIR))
         from scraper import run as scraper_run  # noqa: PLC0415
         paths = scraper_run(fund_ids=fund_ids, headless=headless)
+        sys.path.pop(0)
+
         elapsed = time.time() - t0
         if paths:
             return PhaseResult("Phase 1 (Scraper)", True,
@@ -118,6 +117,8 @@ def _run_phase1(fund_ids: Optional[list[str]], headless: bool = True) -> PhaseRe
         return PhaseResult("Phase 1 (Scraper)", False,
                            detail="Scraper returned no files", elapsed_s=elapsed)
     except Exception as exc:  # noqa: BLE001
+        if str(PHASE1_DIR) in sys.path:
+            sys.path.remove(str(PHASE1_DIR))
         elapsed = time.time() - t0
         logger.error(f"Phase 1 failed: {exc}", exc_info=True)
         return PhaseResult("Phase 1 (Scraper)", False,
@@ -130,12 +131,18 @@ def _run_change_detection(fund_ids: Optional[list[str]]) -> tuple[list[str], Pha
     logger.info("Phase 6 — Change detection…")
     t0 = time.time()
     try:
+        sys.path.insert(0, str(PHASE1_DIR))
         from change_detector import detect_changes  # noqa: PLC0415
         changed = detect_changes(fund_ids=fund_ids)
+        sys.path.pop(0)
+        sys.modules.pop("change_detector", None)
+
         elapsed = time.time() - t0
         detail = f"{len(changed)} changed: {changed}" if changed else "no changes"
         return changed, PhaseResult("Change Detection", True, detail=detail, elapsed_s=elapsed)
     except Exception as exc:  # noqa: BLE001
+        if str(PHASE1_DIR) in sys.path:
+            sys.path.remove(str(PHASE1_DIR))
         elapsed = time.time() - t0
         logger.error(f"Change detection failed: {exc}", exc_info=True)
         # On error, assume all funds changed (conservative)
@@ -150,8 +157,12 @@ def _run_phase2() -> PhaseResult:
     logger.info("Phase 2 — Processing and chunking fund data…")
     t0 = time.time()
     try:
+        sys.path.insert(0, str(PHASE2_DIR))
         from processor import run as processor_run  # noqa: PLC0415
         chunks = processor_run()
+        sys.path.pop(0)
+        sys.modules.pop("processor", None)
+
         elapsed = time.time() - t0
         if chunks:
             return PhaseResult("Phase 2 (Processor)", True,
@@ -160,6 +171,8 @@ def _run_phase2() -> PhaseResult:
         return PhaseResult("Phase 2 (Processor)", False,
                            detail="No chunks produced", elapsed_s=elapsed)
     except Exception as exc:  # noqa: BLE001
+        if str(PHASE2_DIR) in sys.path:
+            sys.path.remove(str(PHASE2_DIR))
         elapsed = time.time() - t0
         logger.error(f"Phase 2 failed: {exc}", exc_info=True)
         return PhaseResult("Phase 2 (Processor)", False,
@@ -172,8 +185,13 @@ def _run_phase3(reset: bool = False) -> PhaseResult:
     logger.info(f"Phase 3 — Embedding chunks into vector store (reset={reset})…")
     t0 = time.time()
     try:
+        sys.path.insert(0, str(PHASE3_DIR))
         from embedder import run as embedder_run  # noqa: PLC0415
         n = embedder_run(reset=reset)
+        sys.path.pop(0)
+        sys.modules.pop("embedder", None)
+        sys.modules.pop("vector_store_lib", None)
+
         elapsed = time.time() - t0
         if n > 0:
             return PhaseResult("Phase 3 (Embedder)", True,
@@ -182,6 +200,8 @@ def _run_phase3(reset: bool = False) -> PhaseResult:
         return PhaseResult("Phase 3 (Embedder)", False,
                            detail="0 chunks embedded", elapsed_s=elapsed)
     except Exception as exc:  # noqa: BLE001
+        if str(PHASE3_DIR) in sys.path:
+            sys.path.remove(str(PHASE3_DIR))
         elapsed = time.time() - t0
         logger.error(f"Phase 3 failed: {exc}", exc_info=True)
         return PhaseResult("Phase 3 (Embedder)", False,

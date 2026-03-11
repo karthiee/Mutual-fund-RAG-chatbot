@@ -100,7 +100,21 @@ class MutualFundRAG:
         if self._model is None:
             from sentence_transformers import SentenceTransformer  # noqa: PLC0415
             logger.info(f"Loading embedding model: {EMBEDDING_MODEL}")
-            self._model = SentenceTransformer(EMBEDDING_MODEL)
+            import os
+            import sys
+            os.environ["TQDM_DISABLE"] = "1"
+            os.environ["HF_HUB_DISABLE_PROGRESS_BARS"] = "1"
+            
+            class DummyFile:
+                def write(self, x): pass
+                def flush(self): pass
+                
+            old_stderr = sys.stderr
+            try:
+                sys.stderr = DummyFile()
+                self._model = SentenceTransformer(EMBEDDING_MODEL)
+            finally:
+                sys.stderr = old_stderr
         return self._model
 
     def _get_store(self):

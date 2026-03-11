@@ -24,7 +24,7 @@ from typing import Optional
 from loguru import logger
 from playwright.sync_api import Page, sync_playwright, TimeoutError as PlaywrightTimeout
 
-from models import FUND_REGISTRY, FundModel, HoldingModel, NAVModel
+from scraper_models import FUND_REGISTRY, FundModel, HoldingModel, NAVModel
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
 ROOT_DIR = Path(__file__).parent
@@ -303,7 +303,7 @@ def scrape_fund(page: Page, fund_meta: dict) -> FundModel:
     # ── Extract NAV ───────────────────────────────────────────────────────────
     logger.debug("  Extracting NAV...")
     nav = _extract_nav(page)
-    logger.info(f"  NAV: ₹{nav.price} ({nav.date})")
+    logger.info(f"  NAV: ₹{nav.price} ({nav.nav_date})")
 
     # ── Extract Overview fields ───────────────────────────────────────────────
     logger.debug("  Extracting overview fields (expense ratio, exit load, SIP, lock-in, riskometer)...")
