@@ -193,12 +193,14 @@ class MutualFundRAG:
     # ── Intent-based metadata filter ──────────────────────────────────────────
 
     @staticmethod
-    def _detect_filters(query: str) -> Optional[dict]:
+    def _detect_filters(query: str) -> tuple[Optional[dict], list[str]]:
         """
-        Detect fund category and chunk type from the query for metadata filtering.
-        When MULTIPLE fund categories are mentioned, skip category filter so all
-        relevant funds are retrieved by semantic search.
-        Returns a ChromaDB filter dict or None.
+        Detect fund category and ALL requested chunk types from the query.
+
+        Returns:
+            (category_filter, detected_chunk_types)
+            - category_filter: a ChromaDB filter dict for fund category, or None
+            - detected_chunk_types: list of all chunk_type strings mentioned in the query
         """
         query_lower = query.lower()
 
@@ -211,42 +213,38 @@ class MutualFundRAG:
             "tax saver":  "elss",
             "top 100":    "large_cap",
         }
-        chunk_map = {
-            ("nav", "price", "current value", "net asset"):     "pricing",
-            ("expense ratio", "ter", "charges", "fee"):         "cost_fees",
-            ("exit load",):                                      "cost_fees",
-            ("sip", "minimum", "lock-in", "lock in"):           "investment",
-            ("holding", "stock", "portfolio", "top 3"):         "holdings",
-            ("risk", "riskometer",):                            "overview",
-        }
+        chunk_map = [
+            (("nav", "price", "current value", "net asset"),       "pricing"),
+            (("expense ratio", "ter", "charges", "fee", "fees"),   "cost_fees"),
+            (("exit load",),                                        "cost_fees"),
+            (("sip", "minimum", "lock-in", "lock in"),             "investment"),
+            (("holding", "stock", "portfolio", "top 3"),           "holdings"),
+            (("risk", "riskometer"),                                "overview"),
+        ]
 
         # Detect ALL matching fund categories in the query
         matched_categories = [
             slug for keyword, slug in category_map.items()
             if keyword in query_lower
         ]
-
-        # If MORE THAN ONE fund category mentioned → skip category filter
-        # so semantic search retrieves context for all mentioned funds
+        # If MORE THAN ONE fund category mentioned, skip category filter
         detected_category = matched_categories[0] if len(matched_categories) == 1 else None
 
-        detected_chunk = None
-        for keywords, chunk_type in chunk_map.items():
+        # Detect ALL matching chunk types (not just the first)
+        seen_chunks: set[str] = set()
+        detected_chunks: list[str] = []
+        for keywords, chunk_type in chunk_map:
             if any(kw in query_lower for kw in keywords):
-                detected_chunk = chunk_type
-                break
+                if chunk_type not in seen_chunks:
+                    seen_chunks.add(chunk_type)
+                    detected_chunks.append(chunk_type)
 
-        conditions = []
+        # Build category filter (applied to all retrievals)
+        category_filter = None
         if detected_category:
-            conditions.append({"category": {"$eq": detected_category}})
-        if detected_chunk:
-            conditions.append({"chunk_type": {"$eq": detected_chunk}})
+            category_filter = {"category": {"$eq": detected_category}}
 
-        if len(conditions) == 2:
-            return {"$and": conditions}
-        elif len(conditions) == 1:
-            return conditions[0]
-        return None
+        return category_filter, detected_chunks
 
     # ── Context formatting ────────────────────────────────────────────────────
 
@@ -345,9 +343,42 @@ class MutualFundRAG:
             )
 
         # ── Step 2: Retrieve ──────────────────────────────────────────────────
-        filters = self._detect_filters(sanitised_query)
-        logger.debug(f"Metadata filters: {filters}")
-        docs = self._retrieve(sanitised_query, filters=filters)
+        category_filter, chunk_types = self._detect_filters(sanitised_query)
+        logger.debug(f"Category filter: {category_filter} | Chunk types: {chunk_types}")
+
+        if len(chunk_types) <= 1:
+            # Single or no chunk type — do one retrieval pass
+            if len(chunk_types) == 1 and category_filter:
+                filters = {"$and": [category_filter, {"chunk_type": {"$eq": chunk_types[0]}}]}
+            elif len(chunk_types) == 1:
+                filters = {"chunk_type": {"$eq": chunk_types[0]}}
+            else:
+                filters = category_filter  # may be None
+            docs = self._retrieve(sanitised_query, filters=filters)
+        else:
+            # MULTIPLE chunk types requested — retrieve for each type separately
+            # and merge results (de-duplicated by chunk text)
+            per_type_k = max(4, self._top_k // len(chunk_types))
+            seen_texts: set[str] = set()
+            docs: list[dict] = []
+            for ct in chunk_types:
+                if category_filter:
+                    f = {"$and": [category_filter, {"chunk_type": {"$eq": ct}}]}
+                else:
+                    f = {"chunk_type": {"$eq": ct}}
+                # Temporarily override top_k for this sub-query
+                orig_k = self._top_k
+                self._top_k = per_type_k
+                sub_docs = self._retrieve(sanitised_query, filters=f)
+                self._top_k = orig_k
+                for d in sub_docs:
+                    t = d["text"]
+                    if t not in seen_texts:
+                        seen_texts.add(t)
+                        docs.append(d)
+            # Sort merged docs by similarity descending
+            docs.sort(key=lambda d: d["similarity"], reverse=True)
+            logger.debug(f"Multi-type retrieval merged {len(docs)} docs across {len(chunk_types)} chunk types")
 
         if not docs:
             no_data_msg = (

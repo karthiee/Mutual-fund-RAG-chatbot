@@ -365,7 +365,6 @@ button[data-testid="baseButton-headerNoPadding"] {
     padding: 0.95rem 1.2rem; max-width: 72%;
     font-size: 0.9rem; line-height: 1.7;
     box-shadow: 0 4px 20px rgba(100,20,50,0.07);
-    white-space: pre-wrap;
 }
 .bubble-blocked {
     border-color: rgba(220, 80, 80, 0.35) !important;
@@ -392,7 +391,10 @@ button[data-testid="baseButton-headerNoPadding"] {
     border-radius: 1rem; font-size: 0.7rem; color: #c0185c;
     text-decoration: none; margin-right: 0.3rem;
 }
-.ts-tag { font-size: 0.66rem; color: rgba(100,30,60,0.45); margin-top: 0.25rem; }
+.ts-tag { font-size: 0.66rem; color: rgba(100,30,60,0.45); margin-top: 0.1rem; }
+.src-row  { margin-top: 0.5rem; display: flex; flex-wrap: wrap; gap: 0.3rem; align-items: center; }
+.src-block { margin-top: 0.6rem; display: flex; flex-direction: column; gap: 0.3rem; }
+.src-item  { display: flex; align-items: center; gap: 0.3rem; flex-wrap: wrap; }
 
 /* ── Sticky footer (stBottom) — solid bg so content hides behind it ── */
 [data-testid="stBottom"] {
@@ -642,87 +644,182 @@ if is_home:
     """, unsafe_allow_html=True)
 
 
-# ── CHAT VIEW ─────────────────────────────────────────────────────────────────
+# -- CHAT VIEW ---------------------------------------------------------------
 else:
+    import re as _re
+    import html as _html_lib
+
+    _PRIVATE_KEYWORDS = (
+        "pan", "pan number", "pan card",
+        "account number", "bank account", "demat account",
+        "password", "otp", "pin", "cvv",
+        "personal", "aadhaar", "aadhar",
+        "tax id", "gstin", "passbook",
+        "mobile number", "phone number", "email id",
+        "credit card", "debit card",
+        "kyc", "ifsc", "nominee",
+    )
+
+    _FUND_PATTERNS = {
+        "hdfc-small-cap-3580":     ["small cap", "small-cap"],
+        "hdfc-flexi-cap-3184":     ["flexi cap", "flexi-cap"],
+        "hdfc-elss-taxsaver-2685": ["elss", "tax saver", "taxsaver"],
+        "hdfc-mid-cap-3097":       ["mid cap", "mid-cap"],
+        "hdfc-large-cap-2989":     ["large cap", "large-cap", "top 100"],
+    }
+
+    def _is_private(text: str) -> bool:
+        t = text.lower()
+        return any(kw in t for kw in _PRIVATE_KEYWORDS)
+
+    def _relevant_sources(sources: list, query: str, response: str) -> list:
+        combined = (query + ' ' + response).lower()
+        result, seen = [], set()
+        for s in sources:
+            url   = s.get("url", "")
+            fid   = s.get("fund_id", "")
+            fname = s.get("fund_name", "")
+            if not url or url in seen or 'indmoney.com' not in url:
+                continue
+            pats = _FUND_PATTERNS.get(fid, [])
+            if any(p in combined for p in pats) or fname.lower() in combined:
+                seen.add(url)
+                result.append(s)
+        if not result:
+            for s in sources:
+                url = s.get("url", "")
+                if url and url not in seen and 'indmoney.com' in url:
+                    seen.add(url)
+                    result.append(s)
+        return result
+
+    def _fmt_inline(text: str) -> str:
+        text = _html_lib.escape(text)
+        text = _re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
+        text = _re.sub(r'__(.+?)__',     r'<strong>\1</strong>', text)
+        text = _re.sub(r'\*([^\*]+?)\*', r'<em>\1</em>', text)
+        text = _re.sub(r'`(.+?)`',       r'<code>\1</code>', text)
+        text = text.replace('&#x20b9;', '₹')
+        return text
+
+    def _md_to_html(text: str) -> str:
+        lines = text.split('\n')
+        out, in_ul, in_ol = [], False, False
+        for line in lines:
+            s = line.strip()
+            ol_m = _re.match(r'^(\d+)\.\s+(.*)', s)
+            is_ul = s.startswith(('- ', '* ', '+ '))
+            if ol_m:
+                if in_ul: out.append('</ul>'); in_ul = False
+                if not in_ol: out.append('<ol>'); in_ol = True
+                out.append(f'<li>{_fmt_inline(ol_m.group(2))}</li>')
+            elif is_ul:
+                if in_ol: out.append('</ol>'); in_ol = False
+                if not in_ul: out.append('<ul>'); in_ul = True
+                out.append(f'<li>{_fmt_inline(s[2:])}</li>')
+            else:
+                if in_ul: out.append('</ul>'); in_ul = False
+                if in_ol: out.append('</ol>'); in_ol = False
+                if s.startswith('### '): out.append(f'<h4>{_fmt_inline(s[4:])}</h4>')
+                elif s.startswith('## '): out.append(f'<h3>{_fmt_inline(s[3:])}</h3>')
+                elif s.startswith('# '): out.append(f'<h3>{_fmt_inline(s[2:])}</h3>')
+                elif s.startswith('---') or s.startswith('***'): out.append('<hr/>')
+                elif s == '': out.append('<br/>')
+                else: out.append(f'<p>{_fmt_inline(s)}</p>')
+        if in_ul: out.append('</ul>')
+        if in_ol: out.append('</ol>')
+        return ''.join(out)
+
+    def _clean_text(text: str) -> str:
+        text = _re.sub(r'\n?(Source:\s*.+|Data last updated:\s*.+)', '', text, flags=_re.IGNORECASE)
+        text = _re.sub(r'</?div[^>]*>', '', text, flags=_re.IGNORECASE)
+        text = _re.sub(r'</?span[^>]*>', '', text, flags=_re.IGNORECASE)
+        text = _re.sub(r'\n{3,}', '\n\n', text)
+        return text.strip()
+
     def _fmt_ts(ts: str) -> str:
         try:
             return datetime.fromisoformat(ts).strftime("%d %b %Y, %H:%M UTC")
-        except Exception:  # noqa
+        except Exception:
             return ts
 
     for msg in st.session_state.messages:
-        role = msg["role"]
+        role    = msg["role"]
         content = msg["content"]
 
-        if role == "user":
-            safe = content.replace("<", "&lt;").replace(">", "&gt;")
-            st.markdown(f"""
-<div class="msg-row-user">
-    <div class="bubble-user">{safe}</div>
-    <div class="av av-user">👤</div>
-</div>""", unsafe_allow_html=True)
-        else:
-            blocked = msg.get("blocked", False)
-            bc = "bubble-blocked" if blocked else ""
-            sources = msg.get("sources", [])
-            src_html = ""
-
-            # ── Strip raw "Source: ..." / "Data last updated: ..." lines ──────
-            import re as _re
-            display_content = _re.sub(
-                r'\n?(Source:\s*.+|Data last updated:\s*.+)',
-                '',
-                content,
-                flags=_re.IGNORECASE
-            ).strip()
-
-            # ── Determine if sources should be shown ─────────────────────────
-            _cl = display_content.lower()
-            _is_guardrail = (
-                blocked
-                or display_content.startswith("⚠️")
-                or "not allowed" in _cl
-                or "i cannot" in _cl
-                or "i'm sorry" in _cl
-                or "personal information" in _cl
-                or "source: none" in _cl
-                or _cl.startswith("i don't")
-                or _cl.startswith("i do not")
+        if role == 'user':
+            safe = _html_lib.escape(content)
+            st.markdown(
+                f'<div class="msg-row-user">'
+                f'<div class="bubble-user">{safe}</div>'
+                f'<div class="av av-user">👤</div></div>',
+                unsafe_allow_html=True,
             )
-            show_sources = (
-                not _is_guardrail
-                and bool(sources)
-            )
-            if show_sources:
-                seen = set()
-                for s in sources:
+            continue
+
+        blocked = msg.get('blocked', False)
+        sources = msg.get('sources', [])
+        bc      = 'bubble-blocked' if blocked else ''
+        clean   = _clean_text(content)
+
+        user_msgs  = [m['content'] for m in st.session_state.messages if m['role'] == 'user']
+        last_query = user_msgs[-1] if user_msgs else ''
+
+        cl = clean.lower()
+        is_guardrail = (
+            blocked
+            or _is_private(last_query)
+            or _is_private(clean)
+            or clean.startswith('⚠️')
+            or 'not allowed'          in cl
+            or 'i cannot'             in cl
+            or 'i’m sorry'             in cl
+            or "i'm sorry"            in cl
+            or 'personal information' in cl
+            or 'cannot provide'       in cl
+            or 'cannot share'         in cl
+            or 'confidential'         in cl
+            or 'source: none'         in cl
+            or cl.startswith("i don't")
+            or cl.startswith('i do not')
+        )
+
+        body_html = _md_to_html(clean)
+
+        src_html = ''
+        if not is_guardrail and sources:
+            rel = _relevant_sources(sources, last_query, clean)
+            if rel:
+                parts = ['<div class="src-block">']
+                for s in rel:
                     url  = s.get("url", "")
                     name = s.get("fund_name", "Source")
                     ts   = s.get("scraped_at", "")
-                    if url and url not in seen and "indmoney.com" in url:
-                        seen.add(url)
-                        src_html += f'<a class="src-tag" href="{url}" target="_blank">🔗 {name}</a>'
-                        if ts:
-                            src_html += f'<div class="ts-tag">📅 {_fmt_ts(ts)}</div>'
+                    ts_span = f'<span class="ts-tag">&nbsp;📅 {_fmt_ts(ts)}</span>' if ts else ''
+                    parts.append(
+                        f'<div class="src-item">'
+                        f'<a class="src-tag" href="{url}" target="_blank">🔗 {name}</a>'
+                        f'{ts_span}</div>'
+                    )
+                parts.append('</div>')
+                src_html = ''.join(parts)
 
-            body = display_content
-            st.markdown(f"""
-<div class="msg-row-bot">
-    <div class="av av-bot">🔮</div>
-    <div class="bubble-bot {bc}">
-        {body}
-        {src_html}
-    </div>
-</div>""", unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="msg-row-bot">'
+            f'<div class="av av-bot">🔮</div>'
+            f'<div class="bubble-bot {bc}">'
+            f'{body_html}'
+            f'{src_html}'
+            f'</div></div>',
+            unsafe_allow_html=True,
+        )
 
 
+# ---------------------------------------------------------------------------
+# Sticky input
+# ---------------------------------------------------------------------------
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Sticky input — st.chat_input stays pinned to bottom natively
-# ─────────────────────────────────────────────────────────────────────────────
-
-user_input = st.chat_input("✦  Ask about any HDFC Mutual Fund...")
+user_input = st.chat_input("❖  Ask about any HDFC Mutual Fund...")
 if user_input and user_input.strip():
     run_query(user_input.strip())
     st.rerun()
