@@ -8,8 +8,8 @@
       "category": "elss",
       "chunk_type": "overview",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-elss-taxsaver-direct-plan-growth-option-2685",
-      "scraped_at": "2026-03-14T10:57:37.487748+00:00",
-      "processed_at": "2026-03-14T10:58:06.546663+00:00"
+      "scraped_at": "2026-03-15T10:59:49.853521+00:00",
+      "processed_at": "2026-03-15T11:00:19.453678+00:00"
     }
   },
   {
@@ -21,8 +21,8 @@
       "category": "elss",
       "chunk_type": "pricing",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-elss-taxsaver-direct-plan-growth-option-2685",
-      "scraped_at": "2026-03-14T10:57:37.487748+00:00",
-      "processed_at": "2026-03-14T10:58:06.546742+00:00"
+      "scraped_at": "2026-03-15T10:59:49.853521+00:00",
+      "processed_at": "2026-03-15T11:00:19.453725+00:00"
     }
   },
   {
@@ -34,8 +34,8 @@
       "category": "elss",
       "chunk_type": "cost_fees",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-elss-taxsaver-direct-plan-growth-option-2685",
-      "scraped_at": "2026-03-14T10:57:37.487748+00:00",
-      "processed_at": "2026-03-14T10:58:06.546768+00:00"
+      "scraped_at": "2026-03-15T10:59:49.853521+00:00",
+      "processed_at": "2026-03-15T11:00:19.453742+00:00"
     }
   },
   {
@@ -47,8 +47,8 @@
       "category": "elss",
       "chunk_type": "investment",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-elss-taxsaver-direct-plan-growth-option-2685",
-      "scraped_at": "2026-03-14T10:57:37.487748+00:00",
-      "processed_at": "2026-03-14T10:58:06.546796+00:00"
+      "scraped_at": "2026-03-15T10:59:49.853521+00:00",
+      "processed_at": "2026-03-15T11:00:19.453757+00:00"
     }
   },
   {
@@ -60,8 +60,8 @@
       "category": "elss",
       "chunk_type": "holdings",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-elss-taxsaver-direct-plan-growth-option-2685",
-      "scraped_at": "2026-03-14T10:57:37.487748+00:00",
-      "processed_at": "2026-03-14T10:58:06.546834+00:00"
+      "scraped_at": "2026-03-15T10:59:49.853521+00:00",
+      "processed_at": "2026-03-15T11:00:19.453781+00:00"
     }
   },
   {
@@ -73,21 +73,21 @@
       "category": "flexi_cap",
       "chunk_type": "overview",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-flexi-cap-fund-direct-plan-growth-option-3184",
-      "scraped_at": "2026-03-14T10:57:21.540594+00:00",
-      "processed_at": "2026-03-14T10:58:06.547355+00:00"
+      "scraped_at": "2026-03-15T10:59:35.203147+00:00",
+      "processed_at": "2026-03-15T11:00:19.454294+00:00"
     }
   },
   {
     "id": "hdfc-flexi-cap-3184__ChunkType.PRICING",
-    "document": "Fund: HDFC Flexi Cap Fund\nCategory: Flexi Cap Fund\nNAV (Net Asset Value): ₹2,111.78 as of March 12, 2026\nCurrency: INR\nThe current Net Asset Value (NAV) of HDFC Flexi Cap Fund is ₹2,111.78. NAV represents the per-unit market value of the fund and is updated daily after market close (3:30 PM IST on trading days).",
+    "document": "Fund: HDFC Flexi Cap Fund\nCategory: Flexi Cap Fund\nNAV (Net Asset Value): ₹2,065.93 as of March 13, 2026\nCurrency: INR\nThe current Net Asset Value (NAV) of HDFC Flexi Cap Fund is ₹2,065.93. NAV represents the per-unit market value of the fund and is updated daily after market close (3:30 PM IST on trading days).",
     "metadata": {
       "fund_id": "hdfc-flexi-cap-3184",
       "fund_name": "HDFC Flexi Cap Fund",
       "category": "flexi_cap",
       "chunk_type": "pricing",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-flexi-cap-fund-direct-plan-growth-option-3184",
-      "scraped_at": "2026-03-14T10:57:21.540594+00:00",
-      "processed_at": "2026-03-14T10:58:06.547381+00:00"
+      "scraped_at": "2026-03-15T10:59:35.203147+00:00",
+      "processed_at": "2026-03-15T11:00:19.454331+00:00"
     }
   },
   {
@@ -99,8 +99,8 @@
       "category": "flexi_cap",
       "chunk_type": "cost_fees",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-flexi-cap-fund-direct-plan-growth-option-3184",
-      "scraped_at": "2026-03-14T10:57:21.540594+00:00",
-      "processed_at": "2026-03-14T10:58:06.547397+00:00"
+      "scraped_at": "2026-03-15T10:59:35.203147+00:00",
+      "processed_at": "2026-03-15T11:00:19.454354+00:00"
     }
   },
   {
@@ -112,8 +112,8 @@
       "category": "flexi_cap",
       "chunk_type": "investment",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-flexi-cap-fund-direct-plan-growth-option-3184",
-      "scraped_at": "2026-03-14T10:57:21.540594+00:00",
-      "processed_at": "2026-03-14T10:58:06.547410+00:00"
+      "scraped_at": "2026-03-15T10:59:35.203147+00:00",
+      "processed_at": "2026-03-15T11:00:19.454375+00:00"
     }
   },
   {
@@ -125,8 +125,8 @@
       "category": "flexi_cap",
       "chunk_type": "holdings",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-flexi-cap-fund-direct-plan-growth-option-3184",
-      "scraped_at": "2026-03-14T10:57:21.540594+00:00",
-      "processed_at": "2026-03-14T10:58:06.547432+00:00"
+      "scraped_at": "2026-03-15T10:59:35.203147+00:00",
+      "processed_at": "2026-03-15T11:00:19.454406+00:00"
     }
   },
   {
@@ -138,8 +138,8 @@
       "category": "large_cap",
       "chunk_type": "overview",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-large-cap-fund-direct-plan-growth-option-2989",
-      "scraped_at": "2026-03-14T10:58:06.437191+00:00",
-      "processed_at": "2026-03-14T10:58:06.547949+00:00"
+      "scraped_at": "2026-03-15T11:00:19.350406+00:00",
+      "processed_at": "2026-03-15T11:00:19.454865+00:00"
     }
   },
   {
@@ -151,8 +151,8 @@
       "category": "large_cap",
       "chunk_type": "pricing",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-large-cap-fund-direct-plan-growth-option-2989",
-      "scraped_at": "2026-03-14T10:58:06.437191+00:00",
-      "processed_at": "2026-03-14T10:58:06.547976+00:00"
+      "scraped_at": "2026-03-15T11:00:19.350406+00:00",
+      "processed_at": "2026-03-15T11:00:19.454901+00:00"
     }
   },
   {
@@ -164,8 +164,8 @@
       "category": "large_cap",
       "chunk_type": "cost_fees",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-large-cap-fund-direct-plan-growth-option-2989",
-      "scraped_at": "2026-03-14T10:58:06.437191+00:00",
-      "processed_at": "2026-03-14T10:58:06.547990+00:00"
+      "scraped_at": "2026-03-15T11:00:19.350406+00:00",
+      "processed_at": "2026-03-15T11:00:19.454921+00:00"
     }
   },
   {
@@ -177,8 +177,8 @@
       "category": "large_cap",
       "chunk_type": "investment",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-large-cap-fund-direct-plan-growth-option-2989",
-      "scraped_at": "2026-03-14T10:58:06.437191+00:00",
-      "processed_at": "2026-03-14T10:58:06.548002+00:00"
+      "scraped_at": "2026-03-15T11:00:19.350406+00:00",
+      "processed_at": "2026-03-15T11:00:19.454939+00:00"
     }
   },
   {
@@ -190,8 +190,8 @@
       "category": "large_cap",
       "chunk_type": "holdings",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-large-cap-fund-direct-plan-growth-option-2989",
-      "scraped_at": "2026-03-14T10:58:06.437191+00:00",
-      "processed_at": "2026-03-14T10:58:06.548023+00:00"
+      "scraped_at": "2026-03-15T11:00:19.350406+00:00",
+      "processed_at": "2026-03-15T11:00:19.454970+00:00"
     }
   },
   {
@@ -203,8 +203,8 @@
       "category": "mid_cap",
       "chunk_type": "overview",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-mid-cap-fund-direct-plan-growth-option-3097",
-      "scraped_at": "2026-03-14T10:57:51.870552+00:00",
-      "processed_at": "2026-03-14T10:58:06.548508+00:00"
+      "scraped_at": "2026-03-15T11:00:04.735465+00:00",
+      "processed_at": "2026-03-15T11:00:19.455486+00:00"
     }
   },
   {
@@ -216,8 +216,8 @@
       "category": "mid_cap",
       "chunk_type": "pricing",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-mid-cap-fund-direct-plan-growth-option-3097",
-      "scraped_at": "2026-03-14T10:57:51.870552+00:00",
-      "processed_at": "2026-03-14T10:58:06.548535+00:00"
+      "scraped_at": "2026-03-15T11:00:04.735465+00:00",
+      "processed_at": "2026-03-15T11:00:19.455520+00:00"
     }
   },
   {
@@ -229,8 +229,8 @@
       "category": "mid_cap",
       "chunk_type": "cost_fees",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-mid-cap-fund-direct-plan-growth-option-3097",
-      "scraped_at": "2026-03-14T10:57:51.870552+00:00",
-      "processed_at": "2026-03-14T10:58:06.548547+00:00"
+      "scraped_at": "2026-03-15T11:00:04.735465+00:00",
+      "processed_at": "2026-03-15T11:00:19.455539+00:00"
     }
   },
   {
@@ -242,8 +242,8 @@
       "category": "mid_cap",
       "chunk_type": "investment",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-mid-cap-fund-direct-plan-growth-option-3097",
-      "scraped_at": "2026-03-14T10:57:51.870552+00:00",
-      "processed_at": "2026-03-14T10:58:06.548559+00:00"
+      "scraped_at": "2026-03-15T11:00:04.735465+00:00",
+      "processed_at": "2026-03-15T11:00:19.455558+00:00"
     }
   },
   {
@@ -255,8 +255,8 @@
       "category": "mid_cap",
       "chunk_type": "holdings",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-mid-cap-fund-direct-plan-growth-option-3097",
-      "scraped_at": "2026-03-14T10:57:51.870552+00:00",
-      "processed_at": "2026-03-14T10:58:06.548580+00:00"
+      "scraped_at": "2026-03-15T11:00:04.735465+00:00",
+      "processed_at": "2026-03-15T11:00:19.455592+00:00"
     }
   },
   {
@@ -268,8 +268,8 @@
       "category": "small_cap",
       "chunk_type": "overview",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-small-cap-fund-direct-growth-option-3580",
-      "scraped_at": "2026-03-14T10:57:06.940960+00:00",
-      "processed_at": "2026-03-14T10:58:06.549100+00:00"
+      "scraped_at": "2026-03-15T10:59:20.469936+00:00",
+      "processed_at": "2026-03-15T11:00:19.456039+00:00"
     }
   },
   {
@@ -281,8 +281,8 @@
       "category": "small_cap",
       "chunk_type": "pricing",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-small-cap-fund-direct-growth-option-3580",
-      "scraped_at": "2026-03-14T10:57:06.940960+00:00",
-      "processed_at": "2026-03-14T10:58:06.549125+00:00"
+      "scraped_at": "2026-03-15T10:59:20.469936+00:00",
+      "processed_at": "2026-03-15T11:00:19.456072+00:00"
     }
   },
   {
@@ -294,8 +294,8 @@
       "category": "small_cap",
       "chunk_type": "cost_fees",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-small-cap-fund-direct-growth-option-3580",
-      "scraped_at": "2026-03-14T10:57:06.940960+00:00",
-      "processed_at": "2026-03-14T10:58:06.549143+00:00"
+      "scraped_at": "2026-03-15T10:59:20.469936+00:00",
+      "processed_at": "2026-03-15T11:00:19.456090+00:00"
     }
   },
   {
@@ -307,8 +307,8 @@
       "category": "small_cap",
       "chunk_type": "investment",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-small-cap-fund-direct-growth-option-3580",
-      "scraped_at": "2026-03-14T10:57:06.940960+00:00",
-      "processed_at": "2026-03-14T10:58:06.549155+00:00"
+      "scraped_at": "2026-03-15T10:59:20.469936+00:00",
+      "processed_at": "2026-03-15T11:00:19.456108+00:00"
     }
   },
   {
@@ -320,8 +320,8 @@
       "category": "small_cap",
       "chunk_type": "holdings",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-small-cap-fund-direct-growth-option-3580",
-      "scraped_at": "2026-03-14T10:57:06.940960+00:00",
-      "processed_at": "2026-03-14T10:58:06.549176+00:00"
+      "scraped_at": "2026-03-15T10:59:20.469936+00:00",
+      "processed_at": "2026-03-15T11:00:19.456141+00:00"
     }
   }
 ]
