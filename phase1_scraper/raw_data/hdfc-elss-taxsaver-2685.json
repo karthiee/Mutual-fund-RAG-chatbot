@@ -1,34 +1,34 @@
 {
   "fund_id": "hdfc-elss-taxsaver-2685",
   "fund_name": "HDFC ELSS TaxSaver Fund",
-  "category": "Small Cap Fund",
+  "category": "ELSS (Tax Savings)",
   "source_url": "https://www.indmoney.com/mutual-funds/hdfc-elss-taxsaver-direct-plan-growth-option-2685",
-  "scraped_at": "2026-03-19T11:10:52.591710+00:00",
+  "scraped_at": "2026-03-20T11:07:32.804598+00:00",
   "nav": {
-    "price": 1446.86,
+    "price": 1401.37,
     "currency": "INR",
-    "nav_date": "2026-03-18"
+    "nav_date": "2026-03-19"
   },
   "expense_ratio": "1.08%",
   "exit_load": "0%",
-  "minimum_sip": "N/A",
+  "minimum_sip": "₹500",
   "lock_in_period": "Minimum investment for lump sum payment is INR 500.00 and for SIP is INR 500.00. There is a lock in period for HDFC ELSS TaxSaver Fund of 3 Years",
   "riskometer": "Very High Risk",
   "top_holdings": [
     {
       "rank": 1,
-      "name": "ICICI Bank Ltd",
-      "percentage": 9.13
-    },
-    {
-      "rank": 2,
       "name": "HDFC Bank Ltd",
       "percentage": 8.87
     },
     {
-      "rank": 3,
+      "rank": 2,
       "name": "Axis Bank Ltd",
       "percentage": 7.38
+    },
+    {
+      "rank": 3,
+      "name": "SBI Life Insurance Co Ltd",
+      "percentage": 5.52
     }
   ]
 }
