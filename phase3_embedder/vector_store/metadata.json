@@ -8,21 +8,21 @@
       "category": "elss",
       "chunk_type": "overview",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-elss-taxsaver-direct-plan-growth-option-2685",
-      "scraped_at": "2026-03-27T11:15:51.298239+00:00",
-      "processed_at": "2026-03-27T11:16:20.664209+00:00"
+      "scraped_at": "2026-03-28T11:01:32.093522+00:00",
+      "processed_at": "2026-03-28T11:02:01.253250+00:00"
     }
   },
   {
     "id": "hdfc-elss-taxsaver-2685__ChunkType.PRICING",
-    "document": "Fund: HDFC ELSS TaxSaver Fund\nCategory: ELSS (Tax Savings)\nNAV (Net Asset Value): ₹1,415.88 as of March 25, 2026\nCurrency: INR\nThe current Net Asset Value (NAV) of HDFC ELSS TaxSaver Fund is ₹1,415.88. NAV represents the per-unit market value of the fund and is updated daily after market close (3:30 PM IST on trading days).",
+    "document": "Fund: HDFC ELSS TaxSaver Fund\nCategory: ELSS (Tax Savings)\nNAV (Net Asset Value): ₹1,389.73 as of March 27, 2026\nCurrency: INR\nThe current Net Asset Value (NAV) of HDFC ELSS TaxSaver Fund is ₹1,389.73. NAV represents the per-unit market value of the fund and is updated daily after market close (3:30 PM IST on trading days).",
     "metadata": {
       "fund_id": "hdfc-elss-taxsaver-2685",
       "fund_name": "HDFC ELSS TaxSaver Fund",
       "category": "elss",
       "chunk_type": "pricing",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-elss-taxsaver-direct-plan-growth-option-2685",
-      "scraped_at": "2026-03-27T11:15:51.298239+00:00",
-      "processed_at": "2026-03-27T11:16:20.664246+00:00"
+      "scraped_at": "2026-03-28T11:01:32.093522+00:00",
+      "processed_at": "2026-03-28T11:02:01.253300+00:00"
     }
   },
   {
@@ -34,8 +34,8 @@
       "category": "elss",
       "chunk_type": "cost_fees",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-elss-taxsaver-direct-plan-growth-option-2685",
-      "scraped_at": "2026-03-27T11:15:51.298239+00:00",
-      "processed_at": "2026-03-27T11:16:20.664260+00:00"
+      "scraped_at": "2026-03-28T11:01:32.093522+00:00",
+      "processed_at": "2026-03-28T11:02:01.253323+00:00"
     }
   },
   {
@@ -47,8 +47,8 @@
       "category": "elss",
       "chunk_type": "investment",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-elss-taxsaver-direct-plan-growth-option-2685",
-      "scraped_at": "2026-03-27T11:15:51.298239+00:00",
-      "processed_at": "2026-03-27T11:16:20.664275+00:00"
+      "scraped_at": "2026-03-28T11:01:32.093522+00:00",
+      "processed_at": "2026-03-28T11:02:01.253349+00:00"
     }
   },
   {
@@ -60,8 +60,8 @@
       "category": "elss",
       "chunk_type": "holdings",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-elss-taxsaver-direct-plan-growth-option-2685",
-      "scraped_at": "2026-03-27T11:15:51.298239+00:00",
-      "processed_at": "2026-03-27T11:16:20.664297+00:00"
+      "scraped_at": "2026-03-28T11:01:32.093522+00:00",
+      "processed_at": "2026-03-28T11:02:01.253383+00:00"
     }
   },
   {
@@ -73,21 +73,21 @@
       "category": "flexi_cap",
       "chunk_type": "overview",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-flexi-cap-fund-direct-plan-growth-option-3184",
-      "scraped_at": "2026-03-27T11:15:36.665942+00:00",
-      "processed_at": "2026-03-27T11:16:20.664767+00:00"
+      "scraped_at": "2026-03-28T11:01:17.510390+00:00",
+      "processed_at": "2026-03-28T11:02:01.253825+00:00"
     }
   },
   {
     "id": "hdfc-flexi-cap-3184__ChunkType.PRICING",
-    "document": "Fund: HDFC Flexi Cap Fund\nCategory: Flexi Cap Fund\nNAV (Net Asset Value): ₹2,079.57 as of March 25, 2026\nCurrency: INR\nThe current Net Asset Value (NAV) of HDFC Flexi Cap Fund is ₹2,079.57. NAV represents the per-unit market value of the fund and is updated daily after market close (3:30 PM IST on trading days).",
+    "document": "Fund: HDFC Flexi Cap Fund\nCategory: Flexi Cap Fund\nNAV (Net Asset Value): ₹2,042.57 as of March 27, 2026\nCurrency: INR\nThe current Net Asset Value (NAV) of HDFC Flexi Cap Fund is ₹2,042.57. NAV represents the per-unit market value of the fund and is updated daily after market close (3:30 PM IST on trading days).",
     "metadata": {
       "fund_id": "hdfc-flexi-cap-3184",
       "fund_name": "HDFC Flexi Cap Fund",
       "category": "flexi_cap",
       "chunk_type": "pricing",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-flexi-cap-fund-direct-plan-growth-option-3184",
-      "scraped_at": "2026-03-27T11:15:36.665942+00:00",
-      "processed_at": "2026-03-27T11:16:20.664795+00:00"
+      "scraped_at": "2026-03-28T11:01:17.510390+00:00",
+      "processed_at": "2026-03-28T11:02:01.253858+00:00"
     }
   },
   {
@@ -99,8 +99,8 @@
       "category": "flexi_cap",
       "chunk_type": "cost_fees",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-flexi-cap-fund-direct-plan-growth-option-3184",
-      "scraped_at": "2026-03-27T11:15:36.665942+00:00",
-      "processed_at": "2026-03-27T11:16:20.664810+00:00"
+      "scraped_at": "2026-03-28T11:01:17.510390+00:00",
+      "processed_at": "2026-03-28T11:02:01.253878+00:00"
     }
   },
   {
@@ -112,8 +112,8 @@
       "category": "flexi_cap",
       "chunk_type": "investment",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-flexi-cap-fund-direct-plan-growth-option-3184",
-      "scraped_at": "2026-03-27T11:15:36.665942+00:00",
-      "processed_at": "2026-03-27T11:16:20.664823+00:00"
+      "scraped_at": "2026-03-28T11:01:17.510390+00:00",
+      "processed_at": "2026-03-28T11:02:01.253905+00:00"
     }
   },
   {
@@ -125,8 +125,8 @@
       "category": "flexi_cap",
       "chunk_type": "holdings",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-flexi-cap-fund-direct-plan-growth-option-3184",
-      "scraped_at": "2026-03-27T11:15:36.665942+00:00",
-      "processed_at": "2026-03-27T11:16:20.664845+00:00"
+      "scraped_at": "2026-03-28T11:01:17.510390+00:00",
+      "processed_at": "2026-03-28T11:02:01.253927+00:00"
     }
   },
   {
@@ -138,21 +138,21 @@
       "category": "large_cap",
       "chunk_type": "overview",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-large-cap-fund-direct-plan-growth-option-2989",
-      "scraped_at": "2026-03-27T11:16:20.563607+00:00",
-      "processed_at": "2026-03-27T11:16:20.665272+00:00"
+      "scraped_at": "2026-03-28T11:02:01.159164+00:00",
+      "processed_at": "2026-03-28T11:02:01.254297+00:00"
     }
   },
   {
     "id": "hdfc-large-cap-2989__ChunkType.PRICING",
-    "document": "Fund: HDFC Large Cap Fund\nCategory: Large Cap Fund\nNAV (Net Asset Value): ₹1,157.98 as of March 25, 2026\nCurrency: INR\nThe current Net Asset Value (NAV) of HDFC Large Cap Fund is ₹1,157.98. NAV represents the per-unit market value of the fund and is updated daily after market close (3:30 PM IST on trading days).",
+    "document": "Fund: HDFC Large Cap Fund\nCategory: Large Cap Fund\nNAV (Net Asset Value): ₹1,134.54 as of March 27, 2026\nCurrency: INR\nThe current Net Asset Value (NAV) of HDFC Large Cap Fund is ₹1,134.54. NAV represents the per-unit market value of the fund and is updated daily after market close (3:30 PM IST on trading days).",
     "metadata": {
       "fund_id": "hdfc-large-cap-2989",
       "fund_name": "HDFC Large Cap Fund",
       "category": "large_cap",
       "chunk_type": "pricing",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-large-cap-fund-direct-plan-growth-option-2989",
-      "scraped_at": "2026-03-27T11:16:20.563607+00:00",
-      "processed_at": "2026-03-27T11:16:20.665297+00:00"
+      "scraped_at": "2026-03-28T11:02:01.159164+00:00",
+      "processed_at": "2026-03-28T11:02:01.254328+00:00"
     }
   },
   {
@@ -164,8 +164,8 @@
       "category": "large_cap",
       "chunk_type": "cost_fees",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-large-cap-fund-direct-plan-growth-option-2989",
-      "scraped_at": "2026-03-27T11:16:20.563607+00:00",
-      "processed_at": "2026-03-27T11:16:20.665309+00:00"
+      "scraped_at": "2026-03-28T11:02:01.159164+00:00",
+      "processed_at": "2026-03-28T11:02:01.254345+00:00"
     }
   },
   {
@@ -177,8 +177,8 @@
       "category": "large_cap",
       "chunk_type": "investment",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-large-cap-fund-direct-plan-growth-option-2989",
-      "scraped_at": "2026-03-27T11:16:20.563607+00:00",
-      "processed_at": "2026-03-27T11:16:20.665320+00:00"
+      "scraped_at": "2026-03-28T11:02:01.159164+00:00",
+      "processed_at": "2026-03-28T11:02:01.254363+00:00"
     }
   },
   {
@@ -190,8 +190,8 @@
       "category": "large_cap",
       "chunk_type": "holdings",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-large-cap-fund-direct-plan-growth-option-2989",
-      "scraped_at": "2026-03-27T11:16:20.563607+00:00",
-      "processed_at": "2026-03-27T11:16:20.665339+00:00"
+      "scraped_at": "2026-03-28T11:02:01.159164+00:00",
+      "processed_at": "2026-03-28T11:02:01.254395+00:00"
     }
   },
   {
@@ -203,21 +203,21 @@
       "category": "mid_cap",
       "chunk_type": "overview",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-mid-cap-fund-direct-plan-growth-option-3097",
-      "scraped_at": "2026-03-27T11:16:05.930553+00:00",
-      "processed_at": "2026-03-27T11:16:20.665797+00:00"
+      "scraped_at": "2026-03-28T11:01:46.727228+00:00",
+      "processed_at": "2026-03-28T11:02:01.254772+00:00"
     }
   },
   {
     "id": "hdfc-mid-cap-3097__ChunkType.PRICING",
-    "document": "Fund: HDFC Mid Cap Fund\nCategory: Mid Cap Fund\nNAV (Net Asset Value): ₹207.59 as of March 25, 2026\nCurrency: INR\nThe current Net Asset Value (NAV) of HDFC Mid Cap Fund is ₹207.59. NAV represents the per-unit market value of the fund and is updated daily after market close (3:30 PM IST on trading days).",
+    "document": "Fund: HDFC Mid Cap Fund\nCategory: Mid Cap Fund\nNAV (Net Asset Value): ₹204.04 as of March 27, 2026\nCurrency: INR\nThe current Net Asset Value (NAV) of HDFC Mid Cap Fund is ₹204.04. NAV represents the per-unit market value of the fund and is updated daily after market close (3:30 PM IST on trading days).",
     "metadata": {
       "fund_id": "hdfc-mid-cap-3097",
       "fund_name": "HDFC Mid Cap Fund",
       "category": "mid_cap",
       "chunk_type": "pricing",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-mid-cap-fund-direct-plan-growth-option-3097",
-      "scraped_at": "2026-03-27T11:16:05.930553+00:00",
-      "processed_at": "2026-03-27T11:16:20.665821+00:00"
+      "scraped_at": "2026-03-28T11:01:46.727228+00:00",
+      "processed_at": "2026-03-28T11:02:01.254804+00:00"
     }
   },
   {
@@ -229,8 +229,8 @@
       "category": "mid_cap",
       "chunk_type": "cost_fees",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-mid-cap-fund-direct-plan-growth-option-3097",
-      "scraped_at": "2026-03-27T11:16:05.930553+00:00",
-      "processed_at": "2026-03-27T11:16:20.665832+00:00"
+      "scraped_at": "2026-03-28T11:01:46.727228+00:00",
+      "processed_at": "2026-03-28T11:02:01.254822+00:00"
     }
   },
   {
@@ -242,8 +242,8 @@
       "category": "mid_cap",
       "chunk_type": "investment",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-mid-cap-fund-direct-plan-growth-option-3097",
-      "scraped_at": "2026-03-27T11:16:05.930553+00:00",
-      "processed_at": "2026-03-27T11:16:20.665844+00:00"
+      "scraped_at": "2026-03-28T11:01:46.727228+00:00",
+      "processed_at": "2026-03-28T11:02:01.254841+00:00"
     }
   },
   {
@@ -255,8 +255,8 @@
       "category": "mid_cap",
       "chunk_type": "holdings",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-mid-cap-fund-direct-plan-growth-option-3097",
-      "scraped_at": "2026-03-27T11:16:05.930553+00:00",
-      "processed_at": "2026-03-27T11:16:20.665864+00:00"
+      "scraped_at": "2026-03-28T11:01:46.727228+00:00",
+      "processed_at": "2026-03-28T11:02:01.254870+00:00"
     }
   },
   {
@@ -268,21 +268,21 @@
       "category": "small_cap",
       "chunk_type": "overview",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-small-cap-fund-direct-growth-option-3580",
-      "scraped_at": "2026-03-27T11:15:21.567278+00:00",
-      "processed_at": "2026-03-27T11:16:20.666273+00:00"
+      "scraped_at": "2026-03-28T11:01:03.028841+00:00",
+      "processed_at": "2026-03-28T11:02:01.255226+00:00"
     }
   },
   {
     "id": "hdfc-small-cap-3580__ChunkType.PRICING",
-    "document": "Fund: HDFC Small Cap Fund\nCategory: Small Cap Fund\nNAV (Net Asset Value): ₹141.55 as of March 25, 2026\nCurrency: INR\nThe current Net Asset Value (NAV) of HDFC Small Cap Fund is ₹141.55. NAV represents the per-unit market value of the fund and is updated daily after market close (3:30 PM IST on trading days).",
+    "document": "Fund: HDFC Small Cap Fund\nCategory: Small Cap Fund\nNAV (Net Asset Value): ₹138.86 as of March 27, 2026\nCurrency: INR\nThe current Net Asset Value (NAV) of HDFC Small Cap Fund is ₹138.86. NAV represents the per-unit market value of the fund and is updated daily after market close (3:30 PM IST on trading days).",
     "metadata": {
       "fund_id": "hdfc-small-cap-3580",
       "fund_name": "HDFC Small Cap Fund",
       "category": "small_cap",
       "chunk_type": "pricing",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-small-cap-fund-direct-growth-option-3580",
-      "scraped_at": "2026-03-27T11:15:21.567278+00:00",
-      "processed_at": "2026-03-27T11:16:20.666296+00:00"
+      "scraped_at": "2026-03-28T11:01:03.028841+00:00",
+      "processed_at": "2026-03-28T11:02:01.255256+00:00"
     }
   },
   {
@@ -294,8 +294,8 @@
       "category": "small_cap",
       "chunk_type": "cost_fees",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-small-cap-fund-direct-growth-option-3580",
-      "scraped_at": "2026-03-27T11:15:21.567278+00:00",
-      "processed_at": "2026-03-27T11:16:20.666307+00:00"
+      "scraped_at": "2026-03-28T11:01:03.028841+00:00",
+      "processed_at": "2026-03-28T11:02:01.255273+00:00"
     }
   },
   {
@@ -307,8 +307,8 @@
       "category": "small_cap",
       "chunk_type": "investment",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-small-cap-fund-direct-growth-option-3580",
-      "scraped_at": "2026-03-27T11:15:21.567278+00:00",
-      "processed_at": "2026-03-27T11:16:20.666318+00:00"
+      "scraped_at": "2026-03-28T11:01:03.028841+00:00",
+      "processed_at": "2026-03-28T11:02:01.255290+00:00"
     }
   },
   {
@@ -320,8 +320,8 @@
       "category": "small_cap",
       "chunk_type": "holdings",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-small-cap-fund-direct-growth-option-3580",
-      "scraped_at": "2026-03-27T11:15:21.567278+00:00",
-      "processed_at": "2026-03-27T11:16:20.666343+00:00"
+      "scraped_at": "2026-03-28T11:01:03.028841+00:00",
+      "processed_at": "2026-03-28T11:02:01.255321+00:00"
     }
   }
 ]
