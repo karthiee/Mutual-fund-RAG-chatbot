@@ -3,11 +3,11 @@
   "fund_name": "HDFC Small Cap Fund",
   "category": "Small Cap Fund",
   "source_url": "https://www.indmoney.com/mutual-funds/hdfc-small-cap-fund-direct-growth-option-3580",
-  "scraped_at": "2026-04-09T11:33:54.669912+00:00",
+  "scraped_at": "2026-04-10T11:28:23.156677+00:00",
   "nav": {
-    "price": 145.99,
+    "price": 145.59,
     "currency": "INR",
-    "nav_date": "2026-04-08"
+    "nav_date": "2026-04-09"
   },
   "expense_ratio": "0.73%",
   "exit_load": "1.0%",
@@ -18,12 +18,12 @@
     {
       "rank": 1,
       "name": "Small-Cap Avg",
-      "percentage": 0.73
+      "percentage": 3.08
     },
     {
       "rank": 2,
       "name": "Best in Small-Cap",
-      "percentage": 0.44
+      "percentage": 4.06
     },
     {
       "rank": 3,
