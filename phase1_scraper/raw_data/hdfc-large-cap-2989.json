@@ -3,7 +3,7 @@
   "fund_name": "HDFC Large Cap Fund",
   "category": "Large Cap Fund",
   "source_url": "https://www.indmoney.com/mutual-funds/hdfc-large-cap-fund-direct-plan-growth-option-2989",
-  "scraped_at": "2026-04-14T11:40:43.635197+00:00",
+  "scraped_at": "2026-04-15T11:37:02.031586+00:00",
   "nav": {
     "price": 1183.02,
     "currency": "INR",
@@ -23,12 +23,12 @@
     {
       "rank": 2,
       "name": "Best in Large-Cap",
-      "percentage": 3.79
+      "percentage": 5.96
     },
     {
       "rank": 3,
-      "name": "HDFC Bank Ltd",
-      "percentage": 8.58
+      "name": "Worst in Large-Cap",
+      "percentage": 2.45
     }
   ]
 }
