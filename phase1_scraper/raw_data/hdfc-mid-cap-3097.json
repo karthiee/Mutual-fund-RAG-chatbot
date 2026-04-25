@@ -3,11 +3,11 @@
   "fund_name": "HDFC Mid Cap Fund",
   "category": "Mid Cap Fund",
   "source_url": "https://www.indmoney.com/mutual-funds/hdfc-mid-cap-fund-direct-plan-growth-option-3097",
-  "scraped_at": "2026-04-24T11:42:27.857173+00:00",
+  "scraped_at": "2026-04-25T11:13:46.929478+00:00",
   "nav": {
-    "price": 220.63,
+    "price": 218.07,
     "currency": "INR",
-    "nav_date": "2026-04-23"
+    "nav_date": "2026-04-24"
   },
   "expense_ratio": "0.77%",
   "exit_load": "1.0%",
@@ -18,17 +18,17 @@
     {
       "rank": 1,
       "name": "Mid-Cap Avg",
-      "percentage": 13.35
+      "percentage": 9.42
     },
     {
       "rank": 2,
       "name": "Best in Mid-Cap",
-      "percentage": 12.9
+      "percentage": 16.53
     },
     {
       "rank": 3,
       "name": "Worst in Mid-Cap",
-      "percentage": 8.0
+      "percentage": 7.5
     }
   ]
 }
