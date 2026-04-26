@@ -3,7 +3,7 @@
   "fund_name": "HDFC ELSS TaxSaver Fund",
   "category": "ELSS (Tax Savings)",
   "source_url": "https://www.indmoney.com/mutual-funds/hdfc-elss-taxsaver-direct-plan-growth-option-2685",
-  "scraped_at": "2026-04-25T11:13:32.395958+00:00",
+  "scraped_at": "2026-04-26T11:13:43.432423+00:00",
   "nav": {
     "price": 1452.64,
     "currency": "INR",
@@ -23,12 +23,12 @@
     {
       "rank": 2,
       "name": "Best in Elss (Tax Savings)",
-      "percentage": 16.16
+      "percentage": 13.22
     },
     {
       "rank": 3,
       "name": "Worst in Elss (Tax Savings)",
-      "percentage": 5.52
+      "percentage": 3.23
     }
   ]
 }

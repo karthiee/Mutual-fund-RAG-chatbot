@@ -8,8 +8,8 @@
       "category": "elss",
       "chunk_type": "overview",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-elss-taxsaver-direct-plan-growth-option-2685",
-      "scraped_at": "2026-04-25T11:13:32.395958+00:00",
-      "processed_at": "2026-04-25T11:14:01.825389+00:00"
+      "scraped_at": "2026-04-26T11:13:43.432423+00:00",
+      "processed_at": "2026-04-26T11:14:12.847188+00:00"
     }
   },
   {
@@ -21,8 +21,8 @@
       "category": "elss",
       "chunk_type": "pricing",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-elss-taxsaver-direct-plan-growth-option-2685",
-      "scraped_at": "2026-04-25T11:13:32.395958+00:00",
-      "processed_at": "2026-04-25T11:14:01.825439+00:00"
+      "scraped_at": "2026-04-26T11:13:43.432423+00:00",
+      "processed_at": "2026-04-26T11:14:12.847243+00:00"
     }
   },
   {
@@ -34,8 +34,8 @@
       "category": "elss",
       "chunk_type": "cost_fees",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-elss-taxsaver-direct-plan-growth-option-2685",
-      "scraped_at": "2026-04-25T11:13:32.395958+00:00",
-      "processed_at": "2026-04-25T11:14:01.825460+00:00"
+      "scraped_at": "2026-04-26T11:13:43.432423+00:00",
+      "processed_at": "2026-04-26T11:14:12.847265+00:00"
     }
   },
   {
@@ -47,21 +47,21 @@
       "category": "elss",
       "chunk_type": "investment",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-elss-taxsaver-direct-plan-growth-option-2685",
-      "scraped_at": "2026-04-25T11:13:32.395958+00:00",
-      "processed_at": "2026-04-25T11:14:01.825486+00:00"
+      "scraped_at": "2026-04-26T11:13:43.432423+00:00",
+      "processed_at": "2026-04-26T11:14:12.847294+00:00"
     }
   },
   {
     "id": "hdfc-elss-taxsaver-2685__ChunkType.HOLDINGS",
-    "document": "Fund: HDFC ELSS TaxSaver Fund\nCategory: ELSS (Tax Savings)\nTop 3 Holdings as of April 2026:\n1. Elss (Tax Savings) Avg — 6.78%\n2. Best in Elss (Tax Savings) — 16.16%\n3. Worst in Elss (Tax Savings) — 5.52%\nThe top 3 holdings of HDFC ELSS TaxSaver Fund as of April 2026 are:\n1. Elss (Tax Savings) Avg — 6.78%\n2. Best in Elss (Tax Savings) — 16.16%\n3. Worst in Elss (Tax Savings) — 5.52%",
+    "document": "Fund: HDFC ELSS TaxSaver Fund\nCategory: ELSS (Tax Savings)\nTop 3 Holdings as of April 2026:\n1. Elss (Tax Savings) Avg — 6.78%\n2. Best in Elss (Tax Savings) — 13.22%\n3. Worst in Elss (Tax Savings) — 3.23%\nThe top 3 holdings of HDFC ELSS TaxSaver Fund as of April 2026 are:\n1. Elss (Tax Savings) Avg — 6.78%\n2. Best in Elss (Tax Savings) — 13.22%\n3. Worst in Elss (Tax Savings) — 3.23%",
     "metadata": {
       "fund_id": "hdfc-elss-taxsaver-2685",
       "fund_name": "HDFC ELSS TaxSaver Fund",
       "category": "elss",
       "chunk_type": "holdings",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-elss-taxsaver-direct-plan-growth-option-2685",
-      "scraped_at": "2026-04-25T11:13:32.395958+00:00",
-      "processed_at": "2026-04-25T11:14:01.825537+00:00"
+      "scraped_at": "2026-04-26T11:13:43.432423+00:00",
+      "processed_at": "2026-04-26T11:14:12.847329+00:00"
     }
   },
   {
@@ -73,8 +73,8 @@
       "category": "flexi_cap",
       "chunk_type": "overview",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-flexi-cap-fund-direct-plan-growth-option-3184",
-      "scraped_at": "2026-04-25T11:13:17.364507+00:00",
-      "processed_at": "2026-04-25T11:14:01.825988+00:00"
+      "scraped_at": "2026-04-26T11:13:28.433419+00:00",
+      "processed_at": "2026-04-26T11:14:12.847803+00:00"
     }
   },
   {
@@ -86,8 +86,8 @@
       "category": "flexi_cap",
       "chunk_type": "pricing",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-flexi-cap-fund-direct-plan-growth-option-3184",
-      "scraped_at": "2026-04-25T11:13:17.364507+00:00",
-      "processed_at": "2026-04-25T11:14:01.826020+00:00"
+      "scraped_at": "2026-04-26T11:13:28.433419+00:00",
+      "processed_at": "2026-04-26T11:14:12.847836+00:00"
     }
   },
   {
@@ -99,8 +99,8 @@
       "category": "flexi_cap",
       "chunk_type": "cost_fees",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-flexi-cap-fund-direct-plan-growth-option-3184",
-      "scraped_at": "2026-04-25T11:13:17.364507+00:00",
-      "processed_at": "2026-04-25T11:14:01.826040+00:00"
+      "scraped_at": "2026-04-26T11:13:28.433419+00:00",
+      "processed_at": "2026-04-26T11:14:12.847855+00:00"
     }
   },
   {
@@ -112,21 +112,21 @@
       "category": "flexi_cap",
       "chunk_type": "investment",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-flexi-cap-fund-direct-plan-growth-option-3184",
-      "scraped_at": "2026-04-25T11:13:17.364507+00:00",
-      "processed_at": "2026-04-25T11:14:01.826058+00:00"
+      "scraped_at": "2026-04-26T11:13:28.433419+00:00",
+      "processed_at": "2026-04-26T11:14:12.847868+00:00"
     }
   },
   {
     "id": "hdfc-flexi-cap-3184__ChunkType.HOLDINGS",
-    "document": "Fund: HDFC Flexi Cap Fund\nCategory: Flexi Cap Fund\nTop 3 Holdings as of April 2026:\n1. Flexi Cap Avg — 6.92%\n2. Best in Flexi Cap — 16.34%\n3. Worst in Flexi Cap — 5.18%\nThe top 3 holdings of HDFC Flexi Cap Fund as of April 2026 are:\n1. Flexi Cap Avg — 6.92%\n2. Best in Flexi Cap — 16.34%\n3. Worst in Flexi Cap — 5.18%",
+    "document": "Fund: HDFC Flexi Cap Fund\nCategory: Flexi Cap Fund\nTop 3 Holdings as of April 2026:\n1. Flexi Cap Avg — 6.92%\n2. Best in Flexi Cap — 13.48%\n3. Worst in Flexi Cap — 4.09%\nThe top 3 holdings of HDFC Flexi Cap Fund as of April 2026 are:\n1. Flexi Cap Avg — 6.92%\n2. Best in Flexi Cap — 13.48%\n3. Worst in Flexi Cap — 4.09%",
     "metadata": {
       "fund_id": "hdfc-flexi-cap-3184",
       "fund_name": "HDFC Flexi Cap Fund",
       "category": "flexi_cap",
       "chunk_type": "holdings",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-flexi-cap-fund-direct-plan-growth-option-3184",
-      "scraped_at": "2026-04-25T11:13:17.364507+00:00",
-      "processed_at": "2026-04-25T11:14:01.826079+00:00"
+      "scraped_at": "2026-04-26T11:13:28.433419+00:00",
+      "processed_at": "2026-04-26T11:14:12.847889+00:00"
     }
   },
   {
@@ -138,8 +138,8 @@
       "category": "large_cap",
       "chunk_type": "overview",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-large-cap-fund-direct-plan-growth-option-2989",
-      "scraped_at": "2026-04-25T11:14:01.744845+00:00",
-      "processed_at": "2026-04-25T11:14:01.826442+00:00"
+      "scraped_at": "2026-04-26T11:14:12.764091+00:00",
+      "processed_at": "2026-04-26T11:14:12.848260+00:00"
     }
   },
   {
@@ -151,8 +151,8 @@
       "category": "large_cap",
       "chunk_type": "pricing",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-large-cap-fund-direct-plan-growth-option-2989",
-      "scraped_at": "2026-04-25T11:14:01.744845+00:00",
-      "processed_at": "2026-04-25T11:14:01.826471+00:00"
+      "scraped_at": "2026-04-26T11:14:12.764091+00:00",
+      "processed_at": "2026-04-26T11:14:12.848289+00:00"
     }
   },
   {
@@ -164,8 +164,8 @@
       "category": "large_cap",
       "chunk_type": "cost_fees",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-large-cap-fund-direct-plan-growth-option-2989",
-      "scraped_at": "2026-04-25T11:14:01.744845+00:00",
-      "processed_at": "2026-04-25T11:14:01.826490+00:00"
+      "scraped_at": "2026-04-26T11:14:12.764091+00:00",
+      "processed_at": "2026-04-26T11:14:12.848307+00:00"
     }
   },
   {
@@ -177,21 +177,21 @@
       "category": "large_cap",
       "chunk_type": "investment",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-large-cap-fund-direct-plan-growth-option-2989",
-      "scraped_at": "2026-04-25T11:14:01.744845+00:00",
-      "processed_at": "2026-04-25T11:14:01.826507+00:00"
+      "scraped_at": "2026-04-26T11:14:12.764091+00:00",
+      "processed_at": "2026-04-26T11:14:12.848329+00:00"
     }
   },
   {
     "id": "hdfc-large-cap-2989__ChunkType.HOLDINGS",
-    "document": "Fund: HDFC Large Cap Fund\nCategory: Large Cap Fund\nTop 3 Holdings as of April 2026:\n1. Large-Cap Avg — 5.69%\n2. Best in Large-Cap — 13.42%\n3. Worst in Large-Cap — 5.24%\nThe top 3 holdings of HDFC Large Cap Fund as of April 2026 are:\n1. Large-Cap Avg — 5.69%\n2. Best in Large-Cap — 13.42%\n3. Worst in Large-Cap — 5.24%",
+    "document": "Fund: HDFC Large Cap Fund\nCategory: Large Cap Fund\nTop 3 Holdings as of April 2026:\n1. Large-Cap Avg — 5.69%\n2. Best in Large-Cap — 13.42%\n3. Worst in Large-Cap — 3.86%\nThe top 3 holdings of HDFC Large Cap Fund as of April 2026 are:\n1. Large-Cap Avg — 5.69%\n2. Best in Large-Cap — 13.42%\n3. Worst in Large-Cap — 3.86%",
     "metadata": {
       "fund_id": "hdfc-large-cap-2989",
       "fund_name": "HDFC Large Cap Fund",
       "category": "large_cap",
       "chunk_type": "holdings",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-large-cap-fund-direct-plan-growth-option-2989",
-      "scraped_at": "2026-04-25T11:14:01.744845+00:00",
-      "processed_at": "2026-04-25T11:14:01.826572+00:00"
+      "scraped_at": "2026-04-26T11:14:12.764091+00:00",
+      "processed_at": "2026-04-26T11:14:12.848349+00:00"
     }
   },
   {
@@ -203,8 +203,8 @@
       "category": "mid_cap",
       "chunk_type": "overview",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-mid-cap-fund-direct-plan-growth-option-3097",
-      "scraped_at": "2026-04-25T11:13:46.929478+00:00",
-      "processed_at": "2026-04-25T11:14:01.826939+00:00"
+      "scraped_at": "2026-04-26T11:13:58.098559+00:00",
+      "processed_at": "2026-04-26T11:14:12.848736+00:00"
     }
   },
   {
@@ -216,8 +216,8 @@
       "category": "mid_cap",
       "chunk_type": "pricing",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-mid-cap-fund-direct-plan-growth-option-3097",
-      "scraped_at": "2026-04-25T11:13:46.929478+00:00",
-      "processed_at": "2026-04-25T11:14:01.826967+00:00"
+      "scraped_at": "2026-04-26T11:13:58.098559+00:00",
+      "processed_at": "2026-04-26T11:14:12.848765+00:00"
     }
   },
   {
@@ -229,8 +229,8 @@
       "category": "mid_cap",
       "chunk_type": "cost_fees",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-mid-cap-fund-direct-plan-growth-option-3097",
-      "scraped_at": "2026-04-25T11:13:46.929478+00:00",
-      "processed_at": "2026-04-25T11:14:01.826984+00:00"
+      "scraped_at": "2026-04-26T11:13:58.098559+00:00",
+      "processed_at": "2026-04-26T11:14:12.848781+00:00"
     }
   },
   {
@@ -242,21 +242,21 @@
       "category": "mid_cap",
       "chunk_type": "investment",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-mid-cap-fund-direct-plan-growth-option-3097",
-      "scraped_at": "2026-04-25T11:13:46.929478+00:00",
-      "processed_at": "2026-04-25T11:14:01.827001+00:00"
+      "scraped_at": "2026-04-26T11:13:58.098559+00:00",
+      "processed_at": "2026-04-26T11:14:12.848805+00:00"
     }
   },
   {
     "id": "hdfc-mid-cap-3097__ChunkType.HOLDINGS",
-    "document": "Fund: HDFC Mid Cap Fund\nCategory: Mid Cap Fund\nTop 3 Holdings as of April 2026:\n1. Mid-Cap Avg — 9.42%\n2. Best in Mid-Cap — 16.53%\n3. Worst in Mid-Cap — 7.50%\nThe top 3 holdings of HDFC Mid Cap Fund as of April 2026 are:\n1. Mid-Cap Avg — 9.42%\n2. Best in Mid-Cap — 16.53%\n3. Worst in Mid-Cap — 7.50%",
+    "document": "Fund: HDFC Mid Cap Fund\nCategory: Mid Cap Fund\nTop 3 Holdings as of April 2026:\n1. Mid-Cap Avg — 9.42%\n2. Best in Mid-Cap — 13.83%\n3. Worst in Mid-Cap — 6.59%\nThe top 3 holdings of HDFC Mid Cap Fund as of April 2026 are:\n1. Mid-Cap Avg — 9.42%\n2. Best in Mid-Cap — 13.83%\n3. Worst in Mid-Cap — 6.59%",
     "metadata": {
       "fund_id": "hdfc-mid-cap-3097",
       "fund_name": "HDFC Mid Cap Fund",
       "category": "mid_cap",
       "chunk_type": "holdings",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-mid-cap-fund-direct-plan-growth-option-3097",
-      "scraped_at": "2026-04-25T11:13:46.929478+00:00",
-      "processed_at": "2026-04-25T11:14:01.827038+00:00"
+      "scraped_at": "2026-04-26T11:13:58.098559+00:00",
+      "processed_at": "2026-04-26T11:14:12.848830+00:00"
     }
   },
   {
@@ -268,8 +268,8 @@
       "category": "small_cap",
       "chunk_type": "overview",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-small-cap-fund-direct-growth-option-3580",
-      "scraped_at": "2026-04-25T11:13:02.382168+00:00",
-      "processed_at": "2026-04-25T11:14:01.827395+00:00"
+      "scraped_at": "2026-04-26T11:13:13.352117+00:00",
+      "processed_at": "2026-04-26T11:14:12.849187+00:00"
     }
   },
   {
@@ -281,8 +281,8 @@
       "category": "small_cap",
       "chunk_type": "pricing",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-small-cap-fund-direct-growth-option-3580",
-      "scraped_at": "2026-04-25T11:13:02.382168+00:00",
-      "processed_at": "2026-04-25T11:14:01.827422+00:00"
+      "scraped_at": "2026-04-26T11:13:13.352117+00:00",
+      "processed_at": "2026-04-26T11:14:12.849215+00:00"
     }
   },
   {
@@ -294,8 +294,8 @@
       "category": "small_cap",
       "chunk_type": "cost_fees",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-small-cap-fund-direct-growth-option-3580",
-      "scraped_at": "2026-04-25T11:13:02.382168+00:00",
-      "processed_at": "2026-04-25T11:14:01.827439+00:00"
+      "scraped_at": "2026-04-26T11:13:13.352117+00:00",
+      "processed_at": "2026-04-26T11:14:12.849232+00:00"
     }
   },
   {
@@ -307,21 +307,21 @@
       "category": "small_cap",
       "chunk_type": "investment",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-small-cap-fund-direct-growth-option-3580",
-      "scraped_at": "2026-04-25T11:13:02.382168+00:00",
-      "processed_at": "2026-04-25T11:14:01.827456+00:00"
+      "scraped_at": "2026-04-26T11:13:13.352117+00:00",
+      "processed_at": "2026-04-26T11:14:12.849250+00:00"
     }
   },
   {
     "id": "hdfc-small-cap-3580__ChunkType.HOLDINGS",
-    "document": "Fund: HDFC Small Cap Fund\nCategory: Small Cap Fund\nTop 3 Holdings as of April 2026:\n1. Small-Cap Avg — 11.76%\n2. Best in Small-Cap — 20.80%\n3. Worst in Small-Cap — 11.05%\nThe top 3 holdings of HDFC Small Cap Fund as of April 2026 are:\n1. Small-Cap Avg — 11.76%\n2. Best in Small-Cap — 20.80%\n3. Worst in Small-Cap — 11.05%",
+    "document": "Fund: HDFC Small Cap Fund\nCategory: Small Cap Fund\nTop 3 Holdings as of April 2026:\n1. Small-Cap Avg — 11.76%\n2. Best in Small-Cap — 17.56%\n3. Worst in Small-Cap — 8.14%\nThe top 3 holdings of HDFC Small Cap Fund as of April 2026 are:\n1. Small-Cap Avg — 11.76%\n2. Best in Small-Cap — 17.56%\n3. Worst in Small-Cap — 8.14%",
     "metadata": {
       "fund_id": "hdfc-small-cap-3580",
       "fund_name": "HDFC Small Cap Fund",
       "category": "small_cap",
       "chunk_type": "holdings",
       "source_url": "https://www.indmoney.com/mutual-funds/hdfc-small-cap-fund-direct-growth-option-3580",
-      "scraped_at": "2026-04-25T11:13:02.382168+00:00",
-      "processed_at": "2026-04-25T11:14:01.827484+00:00"
+      "scraped_at": "2026-04-26T11:13:13.352117+00:00",
+      "processed_at": "2026-04-26T11:14:12.849275+00:00"
     }
   }
 ]
