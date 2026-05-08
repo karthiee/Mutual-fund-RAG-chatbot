@@ -3,11 +3,11 @@
   "fund_name": "HDFC Flexi Cap Fund",
   "category": "Flexi Cap Fund",
   "source_url": "https://www.indmoney.com/mutual-funds/hdfc-flexi-cap-fund-direct-plan-growth-option-3184",
-  "scraped_at": "2026-05-07T12:19:31.962473+00:00",
+  "scraped_at": "2026-05-08T11:55:56.938776+00:00",
   "nav": {
-    "price": 2171.39,
+    "price": 2180.0,
     "currency": "INR",
-    "nav_date": "2026-05-06"
+    "nav_date": "2026-05-07"
   },
   "expense_ratio": "0.68%",
   "exit_load": "1.0%",
@@ -18,17 +18,17 @@
     {
       "rank": 1,
       "name": "Flexi Cap Avg",
-      "percentage": 8.8
+      "percentage": 9.01
     },
     {
       "rank": 2,
       "name": "Best in Flexi Cap",
-      "percentage": 15.17
+      "percentage": 15.15
     },
     {
       "rank": 3,
       "name": "Worst in Flexi Cap",
-      "percentage": 5.24
+      "percentage": 5.08
     }
   ]
 }
